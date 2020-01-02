@@ -10,5 +10,8 @@ public abstract class PageAbstractBandeau {
 	
 	@FindBy (xpath = "//button[contains(.,'Calendrier')]")
 	WebElement onglet_calendrier;
+	
+	@FindBy (xpath = "//a[@href='/libreplan/resources/criterions/criterions.zul']")
+	WebElement onglet_critere;
 
 }
