@@ -1,5 +1,7 @@
 package org.projet_selenium;
 
+import static org.junit.Assert.assertTrue;
+
 import java.util.concurrent.TimeUnit;
 
 import org.junit.After;
@@ -15,6 +17,7 @@ public class ClasseDeTest {
 	//JDD
 	String username = "admin";
 	String pwd = "admin";
+	String onglet = "Calendrier";
 	long pause = 7000;
 	
 	@Before
@@ -36,7 +39,8 @@ public class ClasseDeTest {
 	
 		driver.get("http://localhost:8090/libreplan/");
 		PageLogin page_Login = PageFactory.initElements(driver, PageLogin.class);
-		page_Login.logIn(driver, username, pwd);
+		PageAccueil page_Accueil = page_Login.logIn(driver, username, pwd);
+		assertTrue(page_Accueil.onglet_calendrier.isDisplayed());
 		Thread.sleep(pause);
 		
 	}

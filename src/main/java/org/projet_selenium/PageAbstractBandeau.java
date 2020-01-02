@@ -3,9 +3,12 @@ package org.projet_selenium;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class PageBandeau {
+public abstract class PageAbstractBandeau {
 	
 	@FindBy (xpath = "//button[contains(.,'Ressources')]")
-	WebElement button_ressources;
+	WebElement onglet_ressources;
+	
+	@FindBy (xpath = "//button[contains(.,'Calendrier')]")
+	WebElement onglet_calendrier;
 
 }
