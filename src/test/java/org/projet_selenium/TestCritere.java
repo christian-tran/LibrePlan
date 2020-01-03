@@ -22,29 +22,22 @@ public class TestCritere {
 	long pause = 7000;
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws InterruptedException {
 		driver = OutilTechnique.choisirNavigateur(ENavigateur.chrome);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		
+		OutilTechnique.connexion();
 	}
 	
 	@After
 	public void tearDown() {
 		
-		driver.quit();
-		
+		driver.quit();	
 	}
 	
 	@Test
 	public void cri01() throws InterruptedException {
-	
-		//Connexion au site et login
-		driver.get("http://localhost:8090/libreplan/");
-		PageLogin page_Login = PageFactory.initElements(driver, PageLogin.class);
-		PageAccueil page_Accueil = page_Login.logIn(driver, username, pwd);
 		
-		//Test pour voir si le login s'est bien déroulé
-		assertTrue("La connection a échoué", page_Accueil.onglet_calendrier.isDisplayed());
+		PageAccueil page_Accueil = PageFactory.initElements(driver, PageAccueil.class) ;
 		
 		//Mouse-over et accès page critères
 		Actions a = new Actions(driver);
@@ -62,8 +55,7 @@ public class TestCritere {
 		assertEquals("Le tableau n'est pas bien affiché, la colonne Activé est manquante", "Activé", page_Critere.active.getText());
 		assertEquals("Le tableau n'est pas bien affiché, la colonne Opérations est manquante", "Opérations", page_Critere.operations.getText());
 		
-		//Test si le bouton créer est présent
-		
+		//Test si le bouton créé est présent
 		
 		Thread.sleep(pause);
 		
