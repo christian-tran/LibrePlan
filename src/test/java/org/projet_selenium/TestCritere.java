@@ -19,7 +19,7 @@ public class TestCritere {
 	String username = "admin";
 	String pwd = "admin";
 	String onglet = "Calendrier";
-	long pause = 7000;
+	long pause = 3000;
 	
 	@Before
 	public void setUp() throws InterruptedException {
@@ -37,7 +37,11 @@ public class TestCritere {
 	@Test
 	public void cri01() throws InterruptedException {
 		
+		
 		PageAccueil page_Accueil = PageFactory.initElements(driver, PageAccueil.class) ;
+		
+		//Test pour voir si le login s'est bien déroulé
+		assertTrue(page_Accueil.onglet_calendrier.isDisplayed());
 		
 		//Mouse-over et accès page critères
 		Actions a = new Actions(driver);
