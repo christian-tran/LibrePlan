@@ -45,5 +45,9 @@ WebElement champ_nom;
 @FindBy (xpath = "//span[@class='z-checkbox']/label[text()='Générer le code']/preceding::input[@type='checkbox']")
 WebElement checkbox_gencode;
 
+@FindBy (xpath = "//span[@class='z-label'][text()='Calendrier - Test 1']")
+WebElement calendriertest1;
+
+
 }
 

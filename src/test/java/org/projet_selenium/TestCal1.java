@@ -28,7 +28,7 @@ public class TestCal1 {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 			}
 	
-	@After
+	//@After
 	public void tearDown() {
 		
 		driver.quit();
@@ -86,10 +86,16 @@ public class TestCal1 {
 			
 			OutilTechnique.remplirChamp(page_Calendrier.champ_nom, nom_calendrier);
 			assertTrue("La checkbox 'Générer le code n'est pas cochée'", page_Calendrier.checkbox_gencode.isSelected());
+				
+			page_Calendrier.btn_enr.click();
+			Thread.sleep(pause);
+			
+			//Test pour voir si on arrive bien sur la page Liste des calendriers
+			assertTrue("On ne retourne pas sur la Liste de Calendriers", page_Calendrier.listecalendrier.isDisplayed());
+			
+			assertTrue(page_Calendrier.calendriertest1.isDisplayed());
 			
 			
-			
-			page_Calendrier.btn_enretcon.click();
 			Thread.sleep(pause);
 }
 }
