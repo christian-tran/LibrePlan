@@ -2,14 +2,23 @@ package org.projet_selenium;
 
 import static org.junit.Assert.*;
 
+import java.security.cert.CertPathValidatorException.Reason;
 import java.util.concurrent.TimeUnit;
 
+import org.hamcrest.core.AnyOf;
+import org.hamcrest.core.Is;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.ElementNotInteractableException;
+import org.openqa.selenium.ElementNotSelectableException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.Response;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 
 public class testRessourcesAvancement {
@@ -60,7 +69,7 @@ public class testRessourcesAvancement {
 		//clique sur le bouton creer
 		page_Ressource.button_creer.click() ;
 		
-		//verif elements nécéssaires à la suite des actions
+		//verif elements nécessaires à la suite des actions
 		assertTrue(page_Ressource.titre_type_avancement.isDisplayed()) ;
 		
 		assertTrue(page_Ressource.tab_modif.isDisplayed()) ;
@@ -68,8 +77,22 @@ public class testRessourcesAvancement {
 		page_Ressource.actif.isEnabled() ;	//case cochée par defaut
 		page_Ressource.val_max.getText().equals("100,00") ;	//defaut 100,00
 		page_Ressource.val_max.getText().equals("0,1000") ;//defaut 0,1000
-		assertTrue(page_Ressource.type.isDisplayed()) ;		//user non modifiable
-		assertTrue(page_Ressource.pourcentage.isDisplayed()) ;//non cochée par défaut
+		
+		//Pour montrer que le champ type n'est pas modifiable on tente d'y insérer
+		// du texte. Cela génère une Exception que l'on catch.
+		try
+		{
+		page_Ressource.type.sendKeys("test") ;
+		}
+		catch (Exception e) 
+		{ 
+			assertTrue("user non modifiable", true);
+		}
+		
+		// case non cochée par défaut
+		assertFalse(page_Ressource.pourcentage.isSelected()) ;
+		
+		
 		
 		
 		
