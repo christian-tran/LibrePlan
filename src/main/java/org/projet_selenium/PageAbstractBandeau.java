@@ -13,5 +13,8 @@ public abstract class PageAbstractBandeau {
 	
 	@FindBy (xpath = "//a[@href='/libreplan/resources/criterions/criterions.zul']")
 	WebElement onglet_critere;
+	
+	@FindBy (xpath = "//a[@href='/libreplan/resources/worker/worker.zul']")
+	WebElement sous_menu_participants;
 
 }
