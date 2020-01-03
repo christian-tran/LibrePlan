@@ -53,6 +53,12 @@ public class TestCal1 {
 			//Test pour voir si on arrive bien sur la page Liste des calendriers
 			assertTrue(page_Calendrier.listecalendrier.isDisplayed());
 			
+			//Tests sur les noms des colonnes
+			assertEquals("Le tableau n'est pas bien affiché, la colonne Nom est manquante", "Nom", page_Calendrier.nom.getText());
+			assertEquals("Le tableau n'est pas bien affiché, la colonne Hérité de la date est manquante", "Hérité de la date", page_Calendrier.herite.getText());
+			assertEquals("Le tableau n'est pas bien affiché, la colonne Héritages à jour est manquante", "Héritages à jour", page_Calendrier.heritages.getText());
+			assertEquals("Le tableau n'est pas bien affiché, la colonne Opérations est manquante", "Opérations", page_Calendrier.operations.getText());
+			
 			Thread.sleep(pause);
 }
 }
