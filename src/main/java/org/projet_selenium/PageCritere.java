@@ -2,6 +2,7 @@ package org.projet_selenium;
 
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.Select;
 
 public class PageCritere extends PageAbstractBandeau {
 	
@@ -40,5 +41,14 @@ public class PageCritere extends PageAbstractBandeau {
 	
 	@FindBy (xpath = "//td[text()='Annuler']")
 	WebElement button_annuler;
+	
+	@FindBy (xpath = "//div[@class='z-row-cnt z-overflow-hidden']//input[@class='z-textbox']")
+	WebElement input_nom_critere;
+	
+	@FindBy (xpath = "//textarea[@class='z-textbox']")
+	WebElement input_desc_critere;
+	
+	@FindBy (xpath = "//i[@class='z-combobox']/input")
+	WebElement combobox_type;
 
 }

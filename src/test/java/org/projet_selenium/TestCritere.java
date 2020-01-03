@@ -10,6 +10,8 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TestCritere {
 	
@@ -19,7 +21,10 @@ public class TestCritere {
 	String username = "admin";
 	String pwd = "admin";
 	String onglet = "Calendrier";
-	long pause = 3000;
+	long pause = 2000;
+	String nom_button_enregistrer = "Critère - Test bouton [Enregistrer]";
+	String select_type = "PARTICIPANT";
+	String desc_button_enregistrer = "Critère - Test bouton [Enregistrer]";
 	
 	@Before
 	public void setUp() throws InterruptedException {
@@ -38,6 +43,7 @@ public class TestCritere {
 	public void cri01() throws InterruptedException {
 		
 		
+		WebDriverWait wait = new WebDriverWait(driver,10);
 		PageAccueil page_Accueil = PageFactory.initElements(driver, PageAccueil.class) ;
 		
 		//Test pour voir si le login s'est bien déroulé
@@ -50,7 +56,7 @@ public class TestCritere {
 		PageCritere page_Critere = PageFactory.initElements(driver, PageCritere.class);
 		
 		//Test si on se trouve bien sur la page critères
-		assertEquals("La page Critère n'a pas été affiché", "Types de critères Liste", page_Critere.text_page_criteres.getText());
+		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
 		
 		//Tests sur les noms des colonnes
 		assertEquals("Le tableau n'est pas bien affiché, la colonne Nom est différente", "Nom", page_Critere.nom.getText());
@@ -78,6 +84,19 @@ public class TestCritere {
 		assertTrue("Le boutton Enregistrer ne s'est pas affiché", page_Critere.button_enregistrer.isDisplayed());
 		assertTrue("Le boutton Enregistrer ne s'est pas affiché", page_Critere.button_sauver_continuer.isDisplayed());
 		assertTrue("Le boutton Enregistrer ne s'est pas affiché", page_Critere.button_annuler.isDisplayed());
+		
+		//Renseigner les champs du formulaire
+		OutilTechnique.remplirChamp(page_Critere.input_nom_critere, nom_button_enregistrer);
+		page_Critere.combobox_type.sendKeys(select_type);
+		OutilTechnique.remplirChamp(page_Critere.input_desc_critere, desc_button_enregistrer);
+		
+		//Click sur bouton enregistrer
+		page_Critere.button_enregistrer.click();
+		
+		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_page_criteres));
+		
+		//Vérification de retour
+		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
 		
 		Thread.sleep(pause);
 		
