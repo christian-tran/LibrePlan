@@ -50,18 +50,11 @@ static WebDriver driver;
 		static String pwd = "admin" ;
 		static int pause = 7000 ;
 		
-		static void connexion () throws InterruptedException
-	{
+		static void connexion () throws InterruptedException {
+			
 		driver.get("http://localhost:8090/libreplan/");
 		PageLogin page_Login = PageFactory.initElements(driver, PageLogin.class);
-		PageAccueil page_Accueil = page_Login.logIn(driver, username , pwd);
-		
-		//Test pour voir si le login s'est bien déroulé
-		assertTrue(page_Accueil.onglet_calendrier.isDisplayed());
-		
-		
-		
-		
+		page_Login.logIn(driver, username , pwd);
 		
 	}
 
