@@ -2,6 +2,9 @@ package org.projet_selenium;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -44,18 +47,31 @@ static WebDriver driver;
 		
 	}
 	
-		// Methode de connexion au site, à utiliser en @Before
+	// Methode de connexion au site, à utiliser en @Before
 	
-		static String username ="admin" ;
-		static String pwd = "admin" ;
-		static int pause = 7000 ;
+	static String username ="admin" ;
+	static String pwd = "admin" ;
+	static int pause = 7000 ;
 		
-		static void connexion () throws InterruptedException {
+	static void connexion () throws InterruptedException {
 			
 		driver.get("http://localhost:8090/libreplan/");
 		PageLogin page_Login = PageFactory.initElements(driver, PageLogin.class);
 		page_Login.logIn(driver, username , pwd);
 		
+	}
+	
+	static boolean chercherElement(WebDriver driver, String s, String xpath){ 
+		List<WebElement> lignes = driver.findElements(By.xpath(xpath));
+		for(WebElement ligne : lignes){
+		   List<WebElement> cases = ligne.findElements(By.xpath("td"));
+		   for(WebElement cellule : cases) {
+			   if(cellule.getText().equals(s)){
+				   return true;	
+			   }
+		   }
+		}
+		return false;
 	}
 
 }

@@ -55,17 +55,6 @@ public class PageCritere extends PageAbstractBandeau {
 	@FindBy (xpath = "//i[@class='z-combobox']/input")
 	WebElement combobox_type;
 	
-	public boolean chercherElement(WebDriver driver, String s){ 
-		List<WebElement> lignes = driver.findElements(By.xpath("//div[@class='clickable-rows z-grid']//table//tbody[@class='z-rows']/tr"));
-		for(WebElement ligne : lignes){
-		   List<WebElement> cases = ligne.findElements(By.xpath("td"));
-		   for(WebElement cellule : cases) {
-			   if(cellule.getText().equals(s)){
-				   return true;	
-			   }
-		   }
-		}
-		return false;
-	}
+	String xpath_tableau = "//div[@class='clickable-rows z-grid']//table//tbody[@class='z-rows']/tr";
 
 }

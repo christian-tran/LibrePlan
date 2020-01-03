@@ -100,9 +100,9 @@ public class TestCritere {
 		
 		//Vérification de retour et bouton annuler non créé
 		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
-		assertFalse("Le bouton annulé a été créé",page_Critere.chercherElement(driver, nom_button_annuler));
+		assertFalse("Le bouton annulé a été créé",OutilTechnique.chercherElement(driver, nom_button_annuler,page_Critere.xpath_tableau));
 		
-		//Click sur le bouton créer
+		//Click sur le bouton créer, étape manquante dans le cas de test
 		page_Critere.button_creer.click();
 		
 		//Test bouton Enregistrer, renseigner les champs du formulaire
@@ -117,7 +117,7 @@ public class TestCritere {
 		
 		//Vérification de retour et bouton enregistrer créé
 		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
-		assertTrue("Le bouton annulé a été créé",page_Critere.chercherElement(driver, nom_button_enregistrer));
+		assertTrue("Le bouton annulé a été créé",OutilTechnique.chercherElement(driver, nom_button_enregistrer,page_Critere.xpath_tableau));
 		
 		Thread.sleep(pause);
 		
