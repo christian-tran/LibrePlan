@@ -1,5 +1,15 @@
 package org.projet_selenium;
 
-public class PageAccueil extends PageAbstractBandeau {
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
+public class PageAccueil extends PageAbstractBandeau 
+{
+
+	
+	
+	
+	
+	
 
 }
