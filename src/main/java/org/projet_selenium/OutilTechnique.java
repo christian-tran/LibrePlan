@@ -39,5 +39,15 @@ static WebDriver driver;
 		we.sendKeys(s);
 		
 	}
+	
+	
+	static void connexion () 
+	
+	{
+		
+		
+		
+		
+	}
 
 }
