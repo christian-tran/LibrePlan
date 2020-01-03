@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class PageCalendrier extends PageAbstractBandeau {
 	
-@FindBy (xpath = "//*[text() = 'Liste de calendriers']")
+	@FindBy (xpath = "//*[text() = 'Liste de calendriers']")
 	WebElement listecalendrier;
 	
 @FindBy (xpath = "//table//div[@class='z-treecol-cnt'][text()='Nom']")

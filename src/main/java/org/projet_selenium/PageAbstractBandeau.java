@@ -34,4 +34,16 @@ public abstract class PageAbstractBandeau {
 
 	@FindBy (xpath = "//button[contains(text(),'Zone personnelle')]") 
 	WebElement onglet_zoneperso;
+
+	@FindBy (xpath = "//a[@class='z-menu-item-cnt'][contains(text(),\"Types d'avancement\")]") 
+	WebElement sous_menu_types_avancement;
+
+
+
+
+
+
+
+
+
 }
