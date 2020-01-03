@@ -18,10 +18,12 @@ public class TestCritere {
 	WebDriver driver;
 	
 	//JDD
+	long pause = 2000;
 	String username = "admin";
 	String pwd = "admin";
 	String onglet = "Calendrier";
-	long pause = 2000;
+	String nom_button_annuler = "Critère - Test bouton [Annuler]";
+	String desc_button_annuler = "Critère - Test bouton [Annuler]";
 	String nom_button_enregistrer = "Critère - Test bouton [Enregistrer]";
 	String select_type = "PARTICIPANT";
 	String desc_button_enregistrer = "Critère - Test bouton [Enregistrer]";
@@ -47,6 +49,7 @@ public class TestCritere {
 		PageAccueil page_Accueil = PageFactory.initElements(driver, PageAccueil.class) ;
 		
 		//Test pour voir si le login s'est bien déroulé
+		wait.until(ExpectedConditions.visibilityOf(page_Accueil.button_logout));
 		assertTrue("La page accueil n'est pas affichée", page_Accueil.onglet_calendrier.isDisplayed());
 		
 		//Mouse-over et accès page critères
@@ -85,7 +88,24 @@ public class TestCritere {
 		assertTrue("Le boutton Enregistrer ne s'est pas affiché", page_Critere.button_sauver_continuer.isDisplayed());
 		assertTrue("Le boutton Enregistrer ne s'est pas affiché", page_Critere.button_annuler.isDisplayed());
 		
-		//Renseigner les champs du formulaire
+		//Test bouton Annuler, renseigner les champs du formulaire
+		OutilTechnique.remplirChamp(page_Critere.input_nom_critere, nom_button_annuler);
+		page_Critere.combobox_type.sendKeys(select_type);
+		OutilTechnique.remplirChamp(page_Critere.input_desc_critere, desc_button_annuler);
+		
+		//Click sur bouton annuler
+		page_Critere.button_annuler.click();
+		
+		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_page_criteres));
+		
+		//Vérification de retour et bouton annuler non créé
+		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
+		assertFalse("Le bouton annulé a été créé",page_Critere.chercherElement(driver, nom_button_annuler));
+		
+		//Click sur le bouton créer
+		page_Critere.button_creer.click();
+		
+		//Test bouton Enregistrer, renseigner les champs du formulaire
 		OutilTechnique.remplirChamp(page_Critere.input_nom_critere, nom_button_enregistrer);
 		page_Critere.combobox_type.sendKeys(select_type);
 		OutilTechnique.remplirChamp(page_Critere.input_desc_critere, desc_button_enregistrer);
@@ -95,8 +115,9 @@ public class TestCritere {
 		
 		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_page_criteres));
 		
-		//Vérification de retour
+		//Vérification de retour et bouton enregistrer créé
 		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
+		assertTrue("Le bouton annulé a été créé",page_Critere.chercherElement(driver, nom_button_enregistrer));
 		
 		Thread.sleep(pause);
 		

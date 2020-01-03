@@ -1,5 +1,9 @@
 package org.projet_selenium;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
@@ -50,5 +54,18 @@ public class PageCritere extends PageAbstractBandeau {
 	
 	@FindBy (xpath = "//i[@class='z-combobox']/input")
 	WebElement combobox_type;
+	
+	public boolean chercherElement(WebDriver driver, String s){ 
+		List<WebElement> lignes = driver.findElements(By.xpath("//div[@class='clickable-rows z-grid']//table//tbody[@class='z-rows']/tr"));
+		for(WebElement ligne : lignes){
+		   List<WebElement> cases = ligne.findElements(By.xpath("td"));
+		   for(WebElement cellule : cases) {
+			   if(cellule.getText().equals(s)){
+				   return true;	
+			   }
+		   }
+		}
+		return false;
+	}
 
 }

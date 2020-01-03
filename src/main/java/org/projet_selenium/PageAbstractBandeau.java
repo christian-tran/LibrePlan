@@ -37,6 +37,9 @@ public abstract class PageAbstractBandeau {
 
 	@FindBy (xpath = "//a[@class='z-menu-item-cnt'][contains(text(),\"Types d'avancement\")]") 
 	WebElement sous_menu_types_avancement;
+	
+	@FindBy (xpath = "//a[text()='[Déconnexion]']") 
+	WebElement button_logout;
 
 
 
