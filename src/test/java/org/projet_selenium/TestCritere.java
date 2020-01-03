@@ -38,7 +38,7 @@ public class TestCritere {
 	@Test
 	public void cri01() throws InterruptedException {
 	
-		//Connection au site et login
+		//Connexion au site et login
 		driver.get("http://localhost:8090/libreplan/");
 		PageLogin page_Login = PageFactory.initElements(driver, PageLogin.class);
 		PageAccueil page_Accueil = page_Login.logIn(driver, username, pwd);
