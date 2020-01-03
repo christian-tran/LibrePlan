@@ -26,6 +26,12 @@ public class PageParticipants extends PageAbstractBandeau {
 	@FindBy (xpath = "//table//div[@class='z-column-cnt'][text()='Opérations']")
 	WebElement operations;
 	
+	@FindBy (xpath = "//table//input[@class='z-bandbox-inp'][contains(@style,'width')]")
+	WebElement champ_filtre;
+	
+	@FindBy (xpath = "//table//input[contains(@style,'width')]/following-sibling::i[contains(@class,'z-bandbox-btn')]")
+	WebElement icone_loupe;
+	
 	@FindBy (xpath = "//table//div[@class='z-column-cnt'][text()='Opérations']")
 	WebElement button_creer;
 

@@ -26,6 +26,7 @@ public class TestRessources {
 	public void setUp() throws Exception {
 		driver = OutilTechnique.choisirNavigateur(ENavigateur.chrome);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		OutilTechnique.connexion();
 //		BDDConnexion.insertData("src/test/JDD/JDD.xml");
 		
 	}
@@ -39,11 +40,8 @@ public class TestRessources {
 	
 	@Test
 	public void gre01() throws InterruptedException {
-	
-		//Connection au site et login
-		driver.get("http://localhost:8090/libreplan/");
-		PageLogin page_Login = PageFactory.initElements(driver, PageLogin.class);
-		PageAccueil page_Accueil = page_Login.logIn(driver, username, pwd);
+		
+		PageAccueil page_Accueil = PageFactory.initElements(driver, PageAccueil.class) ;
 		
 		//Test pour voir si le login s'est bien déroulé
 		assertTrue(page_Accueil.onglet_calendrier.isDisplayed());
@@ -58,12 +56,19 @@ public class TestRessources {
 		assertEquals("La page Participants n'a pas été affiché", "Liste des participants", page_Participants.text_page_participants.getText());
 		
 		//Tests sur les noms des colonnes
-		assertEquals("Le tableau n'est pas bien affiché, la colonne Nom est manquante", "Surnom", page_Participants.surnom.getText());
+		assertEquals("Le tableau n'est pas bien affiché, la colonne Surnom est manquante", "Surnom", page_Participants.surnom.getText());
 		assertEquals("Le tableau n'est pas bien affiché, la colonne Prénom est manquante", "Prénom", page_Participants.prenom.getText());
 		assertEquals("Le tableau n'est pas bien affiché, la colonne ID est manquante", "ID", page_Participants.id.getText());
 		assertEquals("Le tableau n'est pas bien affiché, la colonne Code est manquante", "Code", page_Participants.code.getText());
 		assertEquals("Le tableau n'est pas bien affiché, la colonne En file est manquante", "En file", page_Participants.en_file.getText());
 		assertEquals("Le tableau n'est pas bien affiché, la colonne Opérations est manquante", "Opérations", page_Participants.operations.getText());
+		
+		 //Test champ de recherche "Filtré par"
+		
+		assertTrue("Le champ de recherche 'Filtré par' n'est pas présent", page_Participants.champ_filtre.isDisplayed());
+		assertTrue("L'icône loupe n'est pas présente", page_Participants.icone_loupe.isDisplayed());
+		
+		
 		
 		//Test si le bouton créer est présent
 
