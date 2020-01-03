@@ -41,7 +41,7 @@ public class TestCritere {
 		PageAccueil page_Accueil = PageFactory.initElements(driver, PageAccueil.class) ;
 		
 		//Test pour voir si le login s'est bien déroulé
-		assertTrue(page_Accueil.onglet_calendrier.isDisplayed());
+		assertTrue("La page accueil n'est pas affichée", page_Accueil.onglet_calendrier.isDisplayed());
 		
 		//Mouse-over et accès page critères
 		Actions a = new Actions(driver);
@@ -60,6 +60,7 @@ public class TestCritere {
 		assertEquals("Le tableau n'est pas bien affiché, la colonne Opérations est manquante", "Opérations", page_Critere.operations.getText());
 		
 		//Test si le bouton créé est présent
+		assertTrue("Le bouton créer n'est pas présent", page_Critere.button_creer.isDisplayed());
 		
 		Thread.sleep(pause);
 		

@@ -23,7 +23,7 @@ public class PageCritere extends PageAbstractBandeau {
 	@FindBy (xpath = "//table//div[@class='z-column-cnt'][text()='Opérations']")
 	WebElement operations;
 	
-	@FindBy (xpath = "//table//div[@class='z-column-cnt'][text()='Opérations']")
+	@FindBy (xpath = "//td[@class='z-button-cm'][text()='Créer']")
 	WebElement button_creer;
 
 }
