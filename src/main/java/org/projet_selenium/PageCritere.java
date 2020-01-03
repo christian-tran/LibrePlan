@@ -23,7 +23,22 @@ public class PageCritere extends PageAbstractBandeau {
 	@FindBy (xpath = "//table//div[@class='z-column-cnt'][text()='Opérations']")
 	WebElement operations;
 	
-	@FindBy (xpath = "//table//div[@class='z-column-cnt'][text()='Opérations']")
+	@FindBy (xpath = "//td[@class='z-button-cm'][text()='Créer']")
 	WebElement button_creer;
+	
+	@FindBy (xpath = "//td[text()='Créer Type de critère']")
+	WebElement text_page_criteres_creer;
+	
+	@FindBy (xpath = "//span[text()='Modifier']")
+	WebElement onglet_modifier;
+	
+	@FindBy (xpath = "//td[text()='Enregistrer']")
+	WebElement button_enregistrer;
+	
+	@FindBy (xpath = "//td[text()='Sauver et continuer']")
+	WebElement button_sauver_continuer;
+	
+	@FindBy (xpath = "//td[text()='Annuler']")
+	WebElement button_annuler;
 
 }
