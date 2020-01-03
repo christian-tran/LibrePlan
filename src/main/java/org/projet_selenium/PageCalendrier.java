@@ -19,4 +19,8 @@ WebElement heritages;
 
 @FindBy (xpath = "//table//div[@class='z-treecol-cnt'][text()='Opérations']")
 WebElement operations;
+
+@FindBy (xpath = "//span[@class='create-button global-action z-button']//td[text()='Créer']")
+WebElement btn_creer;
+
 }

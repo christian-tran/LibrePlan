@@ -19,7 +19,7 @@ public class TestCal1 {
 	String username = "admin";
 	String pwd = "admin";
 	String onglet = "Calendrier";
-	long pause = 7000;
+	long pause = 3000;
 	
 	@Before
 	public void setUp() {
@@ -58,6 +58,10 @@ public class TestCal1 {
 			assertEquals("Le tableau n'est pas bien affiché, la colonne Hérité de la date est manquante", "Hérité de la date", page_Calendrier.herite.getText());
 			assertEquals("Le tableau n'est pas bien affiché, la colonne Héritages à jour est manquante", "Héritages à jour", page_Calendrier.heritages.getText());
 			assertEquals("Le tableau n'est pas bien affiché, la colonne Opérations est manquante", "Opérations", page_Calendrier.operations.getText());
+			
+			//Test si le bouton 'Créer' est présent
+			
+			assertTrue("Le bouton 'créer' est manquant", page_Calendrier.btn_creer.isDisplayed());
 			
 			Thread.sleep(pause);
 }
