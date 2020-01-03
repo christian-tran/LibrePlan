@@ -12,6 +12,6 @@ public abstract class PageAbstractBandeau {
 	WebElement onglet_calendrier;
 	
 	@FindBy (xpath = "//a[@href='/libreplan/resources/criterions/criterions.zul']")
-	WebElement onglet_critere;
+	WebElement sous_menu_critere;
 
 }
