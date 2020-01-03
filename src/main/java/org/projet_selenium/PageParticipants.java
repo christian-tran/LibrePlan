@@ -41,7 +41,16 @@ public class PageParticipants extends PageAbstractBandeau {
 	@FindBy (xpath = "//table//td[@class='z-button-cm'][text()='Filtre']")
 	WebElement boutton_filtre;
 	
-	@FindBy (xpath = "//table//div[@class='z-column-cnt'][text()='Opérations']")
-	WebElement button_creer;
+	@FindBy (xpath = "//table//span[@class='z-button']")
+	WebElement boutton_filtre_couleur;	
+	
+	@FindBy (xpath = "//div[contains(@class,'clickable-rows')]/following-sibling::span//td[text()='Créer']")
+	WebElement boutton_creer;
+	
+	@FindBy (xpath = "//td[text()='Créer un participant']")
+	WebElement text_page_participants_creer;
+	
+	@FindBy (xpath = "//span[text()='Données de base']")
+	WebElement onglet_donnees_perso;
 
 }

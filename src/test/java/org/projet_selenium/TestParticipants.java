@@ -12,7 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
-public class TestRessources {
+public class TestParticipants {
 	
 	WebDriver driver;
 	
@@ -41,10 +41,13 @@ public class TestRessources {
 	@Test
 	public void gre01() throws InterruptedException {
 		
+	//Pas de test 1
 		PageAccueil page_Accueil = PageFactory.initElements(driver, PageAccueil.class) ;
 		
 		//Test pour voir si le login s'est bien déroulé
 		assertTrue(page_Accueil.onglet_calendrier.isDisplayed());
+		
+	//Pas de test 2
 		
 		//Mouse-over et accès page Participants
 		Actions a = new Actions(driver);
@@ -72,25 +75,38 @@ public class TestRessources {
 		
 		 //Tests champ de recherche "Filtré par"
 		
-		assertTrue("Le champ de recherche 'Filtré par' n'est pas présent", page_Participants.champ_filtre.isDisplayed());
-		assertTrue("L'icône loupe n'est pas présente", page_Participants.icone_loupe.isDisplayed());
+		assertTrue("Le champ de recherche 'Filtré par' n'est pas affiché", page_Participants.champ_filtre.isDisplayed());
+		assertTrue("L'icône loupe n'est pas affichée", page_Participants.icone_loupe.isDisplayed());
 			
 		//Test champ de recherche "Détails personnels"
-		assertTrue("Le champ de recherche 'Détails personnels' n'est pas présent", page_Participants.champ_details.isDisplayed());
+		assertTrue("Le champ de recherche 'Détails personnels' n'est pas affiché", page_Participants.champ_details.isDisplayed());
 		
 		//Tests si un bouton bleu [Plus d'options] est présent
-		assertTrue("Le bouton 'Plus d'options' n'est pas présent", page_Participants.boutton_options.isDisplayed());
-//		System.out.println(page_Participants.boutton_options.getCssValue("color"));
-		assertEquals("Le bouton 'Plus d'options' n'est pas bleu", "rgba(55, 55, 55, 1)", page_Participants.boutton_options.getCssValue("color"));
+		assertTrue("Le bouton 'Plus d'options' n'est pas affiché", page_Participants.boutton_options.isDisplayed());
+//		System.out.println(page_Participants.boutton_options.getCssValue("background-color"));
+//		assertEquals("Le bouton 'Plus d'options' n'est pas bleu", "rgba(55, 55, 55, 1)", page_Participants.boutton_options.getCssValue("color"));
 
 		//Tests si un bouton vert [Filtre] est présent
-		assertTrue("Le bouton 'Filtre' n'est pas présent", page_Participants.boutton_filtre.isDisplayed());
-		System.out.println(page_Participants.boutton_filtre.getCssValue("background-color"));
+		assertTrue("Le bouton 'Filtre' n'est pas affiché", page_Participants.boutton_filtre.isDisplayed());
+//		System.out.println(page_Participants.boutton_filtre_couleur.getCssValue("background-color"));
 //		assertEquals("Le bouton 'Filtre' n'est pas vert", "rgba(55, 55, 55, 1)", page_Participants.boutton_options.getCssValue("color"));
 		
 		
 		//Test si le bouton créer est présent
+		assertTrue("Le bouton créer n'est pas affiché", page_Participants.boutton_creer.isDisplayed());
 
+	//Pas de test 3
+		
+		//Clic sur le bouton créer
+		page_Participants.boutton_creer.click();
+		
+		//Test si on se trouve bien sur la page de création de participants
+		assertEquals("La page de création de participants n'a pas été affiché","Créer un participant",page_Participants.text_page_participants_creer.getText());
+		
+		//Test si l'onglet affiché par défaut est "Données personnelles"
+		assertTrue("L'onglet affiché par défaut n'est pas Données personnelles", page_Participants.onglet_donnees_perso.isDisplayed());
+
+	//Pas de test 4
 		
 		Thread.sleep(pause);
 		
