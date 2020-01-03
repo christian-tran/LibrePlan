@@ -3,6 +3,7 @@ package org.projet_selenium;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
+
 public class PageCalendrier extends PageAbstractBandeau {
 	
 @FindBy (xpath = "//*[text() = 'Liste de calendriers']")
@@ -37,4 +38,12 @@ WebElement btn_enretcon;
 
 @FindBy (xpath = "//table//td[text()='Annuler']")
 WebElement btn_annuler;
+
+@FindBy (xpath = "//input[@class='z-textbox']")
+WebElement champ_nom;
+
+@FindBy (xpath = "//span[@class='z-checkbox']/label[text()='Générer le code']/preceding::input[@type='checkbox']")
+WebElement checkbox_gencode;
+
 }
+

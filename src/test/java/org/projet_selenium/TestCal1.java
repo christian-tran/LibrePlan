@@ -20,6 +20,7 @@ public class TestCal1 {
 	String pwd = "admin";
 	String onglet = "Calendrier";
 	long pause = 3000;
+	String nom_calendrier = "Calendrier - Test 1";
 	
 	@Before
 	public void setUp() {
@@ -83,6 +84,12 @@ public class TestCal1 {
 			assertTrue("Le bouton 'Enregristrer et continuer' est manquant", page_Calendrier.btn_enretcon.isDisplayed());
 			assertTrue("Le bouton 'Annuler' est manquant", page_Calendrier.btn_annuler.isDisplayed());
 			
+			OutilTechnique.remplirChamp(page_Calendrier.champ_nom, nom_calendrier);
+			assertTrue("La checkbox 'Générer le code n'est pas cochée'", page_Calendrier.checkbox_gencode.isSelected());
+			
+			
+			
+			page_Calendrier.btn_enretcon.click();
 			Thread.sleep(pause);
 }
 }
