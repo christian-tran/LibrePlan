@@ -20,7 +20,21 @@ WebElement heritages;
 @FindBy (xpath = "//table//div[@class='z-treecol-cnt'][text()='Opérations']")
 WebElement operations;
 
-@FindBy (xpath = "//span[@class='create-button global-action z-button']//td[text()='Créer']")
+@FindBy (xpath = "//table[@style='width:100%;height:100%']//td[text()='Créer']")
 WebElement btn_creer;
 
+@FindBy (xpath = "//*[text() = 'Créer Calendrier']")
+WebElement creercalendrier;
+
+@FindBy (xpath = "//span[@class='z-tab-text'][text() = 'Données de calendrier']")
+WebElement donneescalendrier;
+
+@FindBy (xpath = "//table//td[text()='Enregistrer']")
+WebElement btn_enr;
+
+@FindBy (xpath = "//table//td[text()='Enregistrer et continuer']")
+WebElement btn_enretcon;
+
+@FindBy (xpath = "//table//td[text()='Annuler']")
+WebElement btn_annuler;
 }

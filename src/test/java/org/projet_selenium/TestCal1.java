@@ -59,9 +59,29 @@ public class TestCal1 {
 			assertEquals("Le tableau n'est pas bien affiché, la colonne Héritages à jour est manquante", "Héritages à jour", page_Calendrier.heritages.getText());
 			assertEquals("Le tableau n'est pas bien affiché, la colonne Opérations est manquante", "Opérations", page_Calendrier.operations.getText());
 			
+			assertTrue("Le tableau n'est pas bien affiché, la colonne Nom est manquante", page_Calendrier.nom.isDisplayed());
+			assertTrue("Le tableau n'est pas bien affiché, la colonne Hérité de la date est manquante", page_Calendrier.herite.isDisplayed());
+			assertTrue("Le tableau n'est pas bien affiché, la colonne Héritages à jour est manquante",  page_Calendrier.heritages.isDisplayed());
+			assertTrue("Le tableau n'est pas bien affiché, la colonne Opérations est manquante",  page_Calendrier.operations.isDisplayed());
+			
 			//Test si le bouton 'Créer' est présent
 			
 			assertTrue("Le bouton 'créer' est manquant", page_Calendrier.btn_creer.isDisplayed());
+			
+			//Cliquer sur le bouton 'créer'
+			
+			page_Calendrier.btn_creer.click();
+			
+			//Test pour voir si on arrive bien sur Créer Calendrier
+			assertTrue(page_Calendrier.creercalendrier.isDisplayed());
+			
+			//Test pour voir s'il existe bien un formulaire de saisie des caractéristiques du calendrier dans un onglet "Données de calendrier"
+			assertTrue(page_Calendrier.donneescalendrier.isDisplayed());
+			
+			//Test pour voir si les boutons "Enregistrer" "Enregistrer et continuer" et "Annuler" sont affichés. 
+			assertTrue("Le bouton 'Enregristrer' est manquant", page_Calendrier.btn_enr.isDisplayed());
+			assertTrue("Le bouton 'Enregristrer et continuer' est manquant", page_Calendrier.btn_enretcon.isDisplayed());
+			assertTrue("Le bouton 'Annuler' est manquant", page_Calendrier.btn_annuler.isDisplayed());
 			
 			Thread.sleep(pause);
 }
