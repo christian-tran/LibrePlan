@@ -32,6 +32,15 @@ public class PageParticipants extends PageAbstractBandeau {
 	@FindBy (xpath = "//table//input[contains(@style,'width')]/following-sibling::i[contains(@class,'z-bandbox-btn')]")
 	WebElement icone_loupe;
 	
+	@FindBy (xpath = "//table//input[@class='z-textbox'][contains(@style,'200')]")
+	WebElement champ_details;
+	
+	@FindBy (xpath = "//table//td[@class='z-caption-l'][contains(., 'options')]")
+	WebElement boutton_options;
+	
+	@FindBy (xpath = "//table//td[@class='z-button-cm'][text()='Filtre']")
+	WebElement boutton_filtre;
+	
 	@FindBy (xpath = "//table//div[@class='z-column-cnt'][text()='Opérations']")
 	WebElement button_creer;
 

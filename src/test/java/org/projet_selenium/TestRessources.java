@@ -20,7 +20,7 @@ public class TestRessources {
 	String username = "admin";
 	String pwd = "admin";
 	String onglet = "Calendrier";
-	long pause = 7000;
+	long pause = 5000;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -56,18 +56,37 @@ public class TestRessources {
 		assertEquals("La page Participants n'a pas été affiché", "Liste des participants", page_Participants.text_page_participants.getText());
 		
 		//Tests sur les noms des colonnes
-		assertEquals("Le tableau n'est pas bien affiché, la colonne Surnom est manquante", "Surnom", page_Participants.surnom.getText());
-		assertEquals("Le tableau n'est pas bien affiché, la colonne Prénom est manquante", "Prénom", page_Participants.prenom.getText());
-		assertEquals("Le tableau n'est pas bien affiché, la colonne ID est manquante", "ID", page_Participants.id.getText());
-		assertEquals("Le tableau n'est pas bien affiché, la colonne Code est manquante", "Code", page_Participants.code.getText());
-		assertEquals("Le tableau n'est pas bien affiché, la colonne En file est manquante", "En file", page_Participants.en_file.getText());
-		assertEquals("Le tableau n'est pas bien affiché, la colonne Opérations est manquante", "Opérations", page_Participants.operations.getText());
+		assertEquals("Le tableau n'est pas bien affiché, la colonne Surnom est différente", "Surnom", page_Participants.surnom.getText());
+		assertEquals("Le tableau n'est pas bien affiché, la colonne Prénom est différente", "Prénom", page_Participants.prenom.getText());
+		assertEquals("Le tableau n'est pas bien affiché, la colonne ID est différente", "ID", page_Participants.id.getText());
+		assertEquals("Le tableau n'est pas bien affiché, la colonne Code est différente", "Code", page_Participants.code.getText());
+		assertEquals("Le tableau n'est pas bien affiché, la colonne En file est différente", "En file", page_Participants.en_file.getText());
+		assertEquals("Le tableau n'est pas bien affiché, la colonne Opérations est différente", "Opérations", page_Participants.operations.getText());
 		
-		 //Test champ de recherche "Filtré par"
+		assertTrue("Le tableau n'est pas bien affiché, la colonne Surnom n'est pas affiché", page_Participants.surnom.isDisplayed());
+		assertTrue("Le tableau n'est pas bien affiché, la colonne Prénom n'est pas affiché", page_Participants.prenom.isDisplayed());
+		assertTrue("Le tableau n'est pas bien affiché, la colonne ID n'est pas affiché", page_Participants.id.isDisplayed());
+		assertTrue("Le tableau n'est pas bien affiché, la colonne Code n'est pas affiché", page_Participants.code.isDisplayed());
+		assertTrue("Le tableau n'est pas bien affiché, la colonne En file n'est pas affiché", page_Participants.en_file.isDisplayed());
+		assertTrue("Le tableau n'est pas bien affiché, la colonne Opérations n'est pas affiché", page_Participants.operations.isDisplayed());
+		
+		 //Tests champ de recherche "Filtré par"
 		
 		assertTrue("Le champ de recherche 'Filtré par' n'est pas présent", page_Participants.champ_filtre.isDisplayed());
 		assertTrue("L'icône loupe n'est pas présente", page_Participants.icone_loupe.isDisplayed());
+			
+		//Test champ de recherche "Détails personnels"
+		assertTrue("Le champ de recherche 'Détails personnels' n'est pas présent", page_Participants.champ_details.isDisplayed());
 		
+		//Tests si un bouton bleu [Plus d'options] est présent
+		assertTrue("Le bouton 'Plus d'options' n'est pas présent", page_Participants.boutton_options.isDisplayed());
+//		System.out.println(page_Participants.boutton_options.getCssValue("color"));
+		assertEquals("Le bouton 'Plus d'options' n'est pas bleu", "rgba(55, 55, 55, 1)", page_Participants.boutton_options.getCssValue("color"));
+
+		//Tests si un bouton vert [Filtre] est présent
+		assertTrue("Le bouton 'Filtre' n'est pas présent", page_Participants.boutton_filtre.isDisplayed());
+		System.out.println(page_Participants.boutton_filtre.getCssValue("background-color"));
+//		assertEquals("Le bouton 'Filtre' n'est pas vert", "rgba(55, 55, 55, 1)", page_Participants.boutton_options.getCssValue("color"));
 		
 		
 		//Test si le bouton créer est présent
