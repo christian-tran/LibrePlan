@@ -68,7 +68,7 @@ public class testRessourcesAvancement {
 		page_Ressource.val_max.getText().equals("100,00") ;		//defaut 100,00
 		page_Ressource.val_max.getText().equals("0,1000") ;		//defaut 0,1000
 		
-		//Pour montrer que le champ type n'est pas modifiable on tente d'y insérer
+		//Pour montrer que le champ type n'est pas modifiable on tente 'try' d'y insérer
 		// du texte. Cela génère une Exception que l'on catch.
 		try { page_Ressource.type.sendKeys("test") ; }
 		catch (Exception e) 
