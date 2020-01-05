@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -22,11 +23,15 @@ public class TestCritere {
 	String username = "admin";
 	String pwd = "admin";
 	String onglet = "Calendrier";
+	String select_type = "PARTICIPANT";
 	String nom_button_annuler = "Critère - Test bouton [Annuler]";
 	String desc_button_annuler = "Critère - Test bouton [Annuler]";
 	String nom_button_enregistrer = "Critère - Test bouton [Enregistrer]";
-	String select_type = "PARTICIPANT";
 	String desc_button_enregistrer = "Critère - Test bouton [Enregistrer]";
+	String nom_button_sauver_continuer = "Critère - Test bouton [Sauver et continuer]";
+	String desc_button_sauver_continuer = "Critère - Test bouton [Sauver et continuer]";
+	String nom_button_sauver_continuer_2 = "Critère - Test bouton [Sauver et continuer]2";
+	int ligne;
 	
 	@Before
 	public void setUp() throws InterruptedException {
@@ -90,6 +95,7 @@ public class TestCritere {
 		
 		//Test bouton Annuler, renseigner les champs du formulaire
 		OutilTechnique.remplirChamp(page_Critere.input_nom_critere, nom_button_annuler);
+		page_Critere.combobox_type.clear();
 		page_Critere.combobox_type.sendKeys(select_type);
 		OutilTechnique.remplirChamp(page_Critere.input_desc_critere, desc_button_annuler);
 		
@@ -107,6 +113,7 @@ public class TestCritere {
 		
 		//Test bouton Enregistrer, renseigner les champs du formulaire
 		OutilTechnique.remplirChamp(page_Critere.input_nom_critere, nom_button_enregistrer);
+		page_Critere.combobox_type.clear();
 		page_Critere.combobox_type.sendKeys(select_type);
 		OutilTechnique.remplirChamp(page_Critere.input_desc_critere, desc_button_enregistrer);
 		
@@ -117,7 +124,81 @@ public class TestCritere {
 		
 		//Vérification de retour et bouton enregistrer créé
 		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
-		assertTrue("Le bouton annulé a été créé",OutilTechnique.chercherElement(driver, nom_button_enregistrer,page_Critere.xpath_tableau));
+		assertTrue("Le bouton enregistrer n'a pas été créé",OutilTechnique.chercherElement(driver, nom_button_enregistrer,page_Critere.xpath_tableau));
+		
+		//Click sur le bouton créer, étape manquante dans le cas de test
+		page_Critere.button_creer.click();
+		
+		//Test bouton Enregistrer, renseigner les champs du formulaire
+		OutilTechnique.remplirChamp(page_Critere.input_nom_critere, nom_button_sauver_continuer);
+		page_Critere.combobox_type.clear();
+		page_Critere.combobox_type.sendKeys(select_type);
+		OutilTechnique.remplirChamp(page_Critere.input_desc_critere, desc_button_sauver_continuer);
+		
+		//Click sur bouton sauver et continuer
+		page_Critere.button_sauver_continuer.click();
+		
+		//Test sur message de confirmation et titre page
+		assertEquals("Le message de confirmation n'a pas été affiché","Type de critère \"Critère - Test bouton [Sauver et continuer]\" enregistré", page_Critere.text_confirmation_action_sauver_continuer.getText());
+		assertEquals("Le titre n'est pas le bon","Modifier Type de critère: Critère - Test bouton [Sauver et continuer]", page_Critere.text_modification_critere.getText());
+		
+		//Click sur bouton annuler
+		page_Critere.button_annuler.click();
+		
+		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_page_criteres));
+		
+		//Vérification de retour et bouton sauver et continuer créé
+		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
+		assertTrue("Le bouton sauver et continuer n'a pas été créé",OutilTechnique.chercherElement(driver, nom_button_sauver_continuer,page_Critere.xpath_tableau));
+		
+		//Click sur le bouton modifier de la colonne opération et de la ligne sauver et continuer
+		ligne = OutilTechnique.retournerNumeroDeLigne(driver, nom_button_sauver_continuer, page_Critere.xpath_tableau);
+		driver.findElement(By.xpath("//tr["+ligne+"]//img[@src='/libreplan/common/img/ico_editar1.png']")).click();
+		
+		
+		//Vérifier qu'on se trouve bien sur la page de modification de sauver et continuer
+		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_modification_critere));
+		assertEquals("La page n'est pas la bonne","Modifier Type de critère: Critère - Test bouton [Sauver et continuer]", page_Critere.text_modification_critere.getText());
+		
+		//Changement du nom de sauver et continuer
+		OutilTechnique.remplirChamp(page_Critere.input_nom_critere, nom_button_sauver_continuer_2);
+		
+		//Click sur annuler
+		page_Critere.button_annuler.click();
+		
+		//Verification retour et non changement du nom de sauver et continuer
+		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_page_criteres));
+		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
+		assertTrue("Le bouton sauver et continuer a été changé",OutilTechnique.chercherElement(driver, nom_button_sauver_continuer,page_Critere.xpath_tableau));
+		
+		//Click sur le nom du critere sauver et continuer
+		page_Critere.nom_button_sauver_continuer.click();
+		
+		//Vérifier qu'on se trouve bien sur la page de modification de sauver et continuer
+		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_modification_critere));
+		assertEquals("La page n'est pas la bonne","Modifier Type de critère: Critère - Test bouton [Sauver et continuer]", page_Critere.text_modification_critere.getText());
+		
+		//Changement du nom de sauver et continuer
+		OutilTechnique.remplirChamp(page_Critere.input_nom_critere, nom_button_sauver_continuer_2);
+		
+		//Click sur bouton sauver et continuer
+		page_Critere.button_sauver_continuer.click();
+						
+		//Test sur message de confirmation et titre page
+		assertEquals("Le message de confirmation n'a pas été affiché","Type de critère \"Critère - Test bouton [Sauver et continuer]2\" enregistré", page_Critere.text_confirmation_action_sauver_continuer.getText());
+		assertEquals("Le titre n'est pas le bon","Modifier Type de critère: Critère - Test bouton [Sauver et continuer]2", page_Critere.text_modification_critere.getText());
+		
+		//Click sur annuler
+		page_Critere.button_annuler.click();
+		
+		//Verification retour et changement du nom de sauver et continuer
+		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_page_criteres));
+		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
+		assertTrue("Le bouton sauver et continuer n'a pas été changé",OutilTechnique.chercherElement(driver, nom_button_sauver_continuer_2,page_Critere.xpath_tableau));
+		
+		//Click sur le bouton modifier de la colonne opération et de la ligne sauver et continuer
+		ligne = OutilTechnique.retournerNumeroDeLigne(driver, nom_button_sauver_continuer_2, page_Critere.xpath_tableau);
+		driver.findElement(By.xpath("//tr["+ligne+"]//img[@src='/libreplan/common/img/ico_borrar1.png']")).click();
 		
 		Thread.sleep(pause);
 		

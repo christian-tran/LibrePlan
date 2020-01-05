@@ -1,6 +1,6 @@
 package org.projet_selenium;
 
-import static org.junit.Assert.assertTrue;
+
 
 import java.util.List;
 
@@ -10,7 +10,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
 public class OutilTechnique {
@@ -72,6 +71,21 @@ static WebDriver driver;
 		   }
 		}
 		return false;
+	}
+	
+	static int retournerNumeroDeLigne(WebDriver driver, String s, String xpath){ 
+		int ligneCourante = 1;
+		List<WebElement> lignes = driver.findElements(By.xpath(xpath));
+		for(WebElement ligne : lignes){
+		   List<WebElement> cases = ligne.findElements(By.xpath("td"));
+		   for(WebElement cellule : cases) {
+			   if(cellule.getText().equals(s)){
+				   return ligneCourante;	
+			   }
+		   }
+	      ligneCourante++;
+		}
+		return -1;
 	}
 
 }
