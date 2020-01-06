@@ -25,7 +25,7 @@ public class testRessourcesAvancement {
 	@After
 	public void tearDown() throws InterruptedException
 	{
-		Thread.sleep(2000) ;
+		Thread.sleep(8000) ;
 		driver.quit();	
 	}
 	
@@ -97,7 +97,27 @@ public class testRessourcesAvancement {
 		assertEquals("Type d'avancement \"Type d'avancement - Test 1\" enregistré", page_Ressource.enregistrement_confirm.getText()) ;
 		//driver.navigate().refresh() ;
 		assertEquals("Type d'avancement \"Type d'avancement - Test 1\" enregistré", page_Ressource.avancement_cree_tab.getText()) ;
-
+		assertFalse(page_Ressource.checkbox_active.isEnabled()) ;
+		assertFalse(page_Ressource.checkbox_predefini.isEnabled()) ;
+		assertTrue(page_Ressource.bouton_operations_modif.isDisplayed()) ;
+		assertTrue(page_Ressource.bouton_operations_del.isDisplayed()) ;
+		
+		assertTrue(page_Ressource.checkbox_active.isSelected()) ;
+		assertTrue(page_Ressource.checkbox_predefini.isSelected()) ;
+		assertTrue(page_Ressource.bouton_operations_modif.isEnabled()) ;
+		assertTrue(page_Ressource.bouton_operations_del.isEnabled()) ;
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

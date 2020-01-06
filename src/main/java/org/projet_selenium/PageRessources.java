@@ -82,11 +82,24 @@ public class PageRessources
 	@FindBy (xpath = "//div[@class='message_INFO']")
 	WebElement enregistrement_confirm ;
 	
+	//WebElements pour controle des infos dans le tableau recap des types d'avancement
 	@FindBy (xpath = "//span[contains(text(),\"Type d'avancement - Test 1\")]")
 	WebElement avancement_cree_tab ;
 	
-	//tr[@class='clickable-rows z-row z-grid-odd']//td[2]//div[1]//span[1]//input[1]
-	//tr[@class='clickable-rows z-row z-grid-odd']//td[2]//div[1]//span[1]//input[1]
+	@FindBy (xpath = "//div[@class='clickable-rows z-grid']//tr[6]//td[2]//div[1]//span[1]//input[1]")
+	WebElement checkbox_active ;
+	
+	@FindBy (xpath = "//tr[6]//td[3]//div[1]//span[1]//input[1]")
+	WebElement checkbox_predefini ;
+	
+	@FindBy (xpath = "//table//img[@src='/libreplan/common/img/ico_editar1.png']")
+	WebElement bouton_operations_modif ;
+	
+	@FindBy (xpath = "//table[@class='']//img[@src='/libreplan/common/img/ico_borrar1.png']")
+	WebElement bouton_operations_del ;
+	
+
+	
 	
 	
 	
