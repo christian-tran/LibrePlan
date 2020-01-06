@@ -59,6 +59,22 @@ public class PageCritere extends PageAbstractBandeau {
 	@FindBy (xpath = "//span[@title='Critère - Test bouton [Sauver et continuer]']")
 	WebElement nom_button_sauver_continuer;
 	
+	@FindBy (xpath = "//div[@class='z-messagebox']//span[@class='z-label']")
+	WebElement message_pop_up_suppression;
+	
+	@FindBy (xpath = "//td[text()='OK']")
+	WebElement button_ok_pop_up;
+	
+	@FindBy (xpath = "//div[@class='z-window-modal-cm']//td[text()='Annuler']")
+	WebElement button_annuler_pop_up;
+	
+	@FindBy (xpath = "//div[@class='z-window-modal-header z-window-modal-header-move']")
+	WebElement pop_up_supprimer;
+	
+	@FindBy (xpath = "//span[contains(.,'[Sauver et continuer]2\" supprimé')]")
+	WebElement text_suppression_critere;
+	
+	
 	String xpath_tableau = "//div[@class='clickable-rows z-grid']//table//tbody[@class='z-rows']/tr";
 
 }

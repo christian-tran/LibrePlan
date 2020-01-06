@@ -169,7 +169,7 @@ public class TestCritere {
 		//Verification retour et non changement du nom de sauver et continuer
 		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_page_criteres));
 		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
-		assertTrue("Le bouton sauver et continuer a été changé",OutilTechnique.chercherElement(driver, nom_button_sauver_continuer,page_Critere.xpath_tableau));
+		assertEquals("Le titre a été changé","Critère - Test bouton [Sauver et continuer]", page_Critere.nom_button_sauver_continuer.getText());
 		
 		//Click sur le nom du critere sauver et continuer
 		page_Critere.nom_button_sauver_continuer.click();
@@ -191,14 +191,44 @@ public class TestCritere {
 		//Click sur annuler
 		page_Critere.button_annuler.click();
 		
-		//Verification retour et changement du nom de sauver et continuer
+		//Vérification retour et changement du nom de sauver et continuer
 		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_page_criteres));
 		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
-		assertTrue("Le bouton sauver et continuer n'a pas été changé",OutilTechnique.chercherElement(driver, nom_button_sauver_continuer_2,page_Critere.xpath_tableau));
+		assertEquals("Le titre n'a pas été changé","Critère - Test bouton [Sauver et continuer]2", page_Critere.nom_button_sauver_continuer.getText());
 		
-		//Click sur le bouton modifier de la colonne opération et de la ligne sauver et continuer
+		//Click sur le bouton supprimer de la colonne opération et de la ligne sauver et continuer
 		ligne = OutilTechnique.retournerNumeroDeLigne(driver, nom_button_sauver_continuer_2, page_Critere.xpath_tableau);
 		driver.findElement(By.xpath("//tr["+ligne+"]//img[@src='/libreplan/common/img/ico_borrar1.png']")).click();
+		
+		//Vérification message dans la pop up de suppression
+		assertEquals("Le message de la pop up de suppression est érronée","Supprimer Type de critère \"Critère - Test bouton [Sauver et continuer]2\". Êtes-vous sûr ?", page_Critere.message_pop_up_suppression.getText());
+		assertTrue("Le bouton OK n'est pas affiché", page_Critere.button_ok_pop_up.isDisplayed());
+		assertTrue("Le bouton Annuler n'est pas affiché", page_Critere.button_annuler_pop_up.isDisplayed());
+		
+		//Click sur bouton annuler
+		page_Critere.button_annuler_pop_up.click();
+		
+		//Vérification de retour sur page et non suppression
+		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_page_criteres));
+		assertTrue("La pop up est toujours présente a l'écran",page_Critere.text_page_criteres.isDisplayed());
+		assertTrue("Le bouton sauver et continuer a été supprimé",OutilTechnique.chercherElement(driver, nom_button_sauver_continuer_2,page_Critere.xpath_tableau));
+		
+		//Click sur la poubelle de la colonne opération et de la ligne sauver et continuer
+		ligne = OutilTechnique.retournerNumeroDeLigne(driver, nom_button_sauver_continuer_2, page_Critere.xpath_tableau);
+		driver.findElement(By.xpath("//tr["+ligne+"]//img[@src='/libreplan/common/img/ico_borrar1.png']")).click();
+		
+		//Vérification message dans la pop up de suppression
+		assertEquals("Le message de la pop up de suppression est érronée","Supprimer Type de critère \"Critère - Test bouton [Sauver et continuer]2\". Êtes-vous sûr ?", page_Critere.message_pop_up_suppression.getText());
+		assertTrue("Le bouton OK n'est pas affiché", page_Critere.button_ok_pop_up.isDisplayed());
+		assertTrue("Le bouton Annuler n'est pas affiché", page_Critere.button_annuler_pop_up.isDisplayed());
+		
+		//Click sur le bouton OK
+		page_Critere.button_ok_pop_up.click();
+		
+		//Vérification message de suppression
+		assertTrue("Le message de suppresion n'est pas affiché", page_Critere.text_suppression_critere.isDisplayed());
+		assertFalse("Le bouton sauver et continuer 2 n'a pas été éffacé",OutilTechnique.chercherElement(driver, nom_button_sauver_continuer_2,page_Critere.xpath_tableau));
+		
 		
 		Thread.sleep(pause);
 		
