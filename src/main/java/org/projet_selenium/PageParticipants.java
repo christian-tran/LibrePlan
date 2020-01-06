@@ -68,8 +68,18 @@ public class PageParticipants extends PageAbstractBandeau {
 	@FindBy (xpath = "//input[@type='radio']/following-sibling::label[text()='Créer un nouvel utilisateur']")
 	WebElement bouton_radio_creer;
 	
-	//a revoir
-	@FindBy (xpath = "//span[contains(text(), 'utilisateur')]/following::input[@class='z-textbox']")
-	WebElement input_nom_user_participant;
-
+	@FindBy (xpath = "//span[contains(text(), 'utilisateur')]/following::input[@class='z-textbox'][1]")
+	WebElement input_nom_user_participant;	
+	
+	@FindBy (xpath = "//span[contains(text(), 'passe')]/following::input[@type='password'][1]")
+	WebElement input_mdp_participant;
+	
+	@FindBy (xpath = "//span[contains(text(), 'passe')]/following::input[@type='password'][2]")
+	WebElement input_mdp_confirm_participant;
+	
+	@FindBy (xpath = "//td[text()='Enregistrer']")
+	WebElement boutton_enregistrer;
+	
+	@FindBy (xpath = "//div[@class='message_INFO']/span")
+	WebElement message_enregistrement_participant;
 }
