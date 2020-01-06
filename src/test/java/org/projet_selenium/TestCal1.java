@@ -36,7 +36,7 @@ public class TestCal1 {
 		OutilTechnique.connexion();
 			}
 	
-	//@After
+	@After
 	public void tearDown() {
 		
 		driver.quit();
@@ -149,11 +149,8 @@ public class TestCal1 {
 			PageFactory.initElements(driver, PageCalendrier.class);
 			
 			wait.until(ExpectedConditions.elementToBeClickable(page_Calendrier.btn_annuler1));
-			
-			b.moveToElement(page_Calendrier.btn_annuler1).build().perform();
-			b.moveToElement(page_Calendrier.btn_annuler1).click().build().perform();	
-								
-			page_Calendrier.btn_annuler1.click();
+			driver.findElement(By.xpath("//td[text()='Annuler'])[1]")).click();
+			//page_Calendrier.btn_annuler1.click();
 			
 			
 			// Pour cliquer sur btn_annuler1 test ok mais ne fonctionne pas
