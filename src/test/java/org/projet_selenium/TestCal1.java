@@ -143,7 +143,21 @@ public class TestCal1 {
 			//Test pour voir si on arrive bien sur Créer Calendrier	
 			assertTrue(page_Calendrier.creercalendrierderive.isDisplayed());
 			assertTrue (page_Calendrier.msg_cal_derive.isDisplayed());
-					
+			
+			assertTrue(page_Calendrier.btn_annuler1.isDisplayed());
+			page_Calendrier.creercalendrierderive.click();
+			PageFactory.initElements(driver, PageCalendrier.class);
+			
+			wait.until(ExpectedConditions.elementToBeClickable(page_Calendrier.btn_annuler1));
+			
+			b.moveToElement(page_Calendrier.btn_annuler1).build().perform();
+			b.moveToElement(page_Calendrier.btn_annuler1).click().build().perform();	
+								
+			page_Calendrier.btn_annuler1.click();
+			
+			
+			// Pour cliquer sur btn_annuler1 test ok mais ne fonctionne pas
+						
 			Thread.sleep(pause);
 }
 }

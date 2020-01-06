@@ -68,5 +68,13 @@ WebElement creercalendrierderive;
 @FindBy (xpath = "//*[text() = 'Calendrier de base \"Calendrier - Test Calendrier Derive\" enregistré']")
 WebElement msg_cal_derive;
 
+@FindBy (xpath = "(//td[text()='Annuler'])[1]")
+WebElement btn_annuler1;
+
+@FindBy (xpath = "//div[2]/div[3]//td[5]/span//tr[2]/td[2]")
+WebElement btn_annuler2;
+
+@FindBy (xpath = "//img[@src='/libreplan/common/img/axuda.gif']")
+WebElement btn_aide;
 }
 
