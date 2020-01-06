@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
@@ -21,6 +22,8 @@ public class TestCal1 {
 	String onglet = "Calendrier";
 	long pause = 3000;
 	String nom_calendrier = "Calendrier - Test 1";
+	String btn_derive = "Calendrier - Test bouton [dérive]2";
+	int ligne;
 	
 	@Before
 	public void setUp() {
@@ -94,6 +97,10 @@ public class TestCal1 {
 			assertTrue("On ne retourne pas sur la Liste de Calendriers", page_Calendrier.listecalendrier.isDisplayed());
 			
 			assertTrue(page_Calendrier.calendriertest1.isDisplayed());
+			
+			// Cliquer sur créer une dérive  dans la colonne opération pour le calendrier "Calendrier - Test 1"
+			ligne = OutilTechnique.retournerNumeroDeLigne(driver, nom_calendrier, page_Calendrier.xpath_tableau1);
+			driver.findElement(By.xpath("//tr["+ligne+"]//img[@src='/libreplan/common/img/ico_derived1.png']")).click();
 			
 			
 			Thread.sleep(pause);

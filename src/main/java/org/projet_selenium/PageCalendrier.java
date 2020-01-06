@@ -48,6 +48,6 @@ WebElement checkbox_gencode;
 @FindBy (xpath = "//span[@class='z-label'][text()='Calendrier - Test 1']")
 WebElement calendriertest1;
 
-
+String xpath_tableau1 = "//div[@class='z-dottree-body']//table//tbody[@class='z-treechildren']//tr[@class='z-treerow']";
 }
 
