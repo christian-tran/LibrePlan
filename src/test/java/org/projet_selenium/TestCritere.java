@@ -13,6 +13,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestCritere {
 	
@@ -31,6 +33,7 @@ public class TestCritere {
 	String nom_button_sauver_continuer = "Critère - Test bouton [Sauver et continuer]";
 	String desc_button_sauver_continuer = "Critère - Test bouton [Sauver et continuer]";
 	String nom_button_sauver_continuer_2 = "Critère - Test bouton [Sauver et continuer]2";
+	static Logger logger = LoggerFactory.getLogger(TestParticipants.class);
 	int ligne;
 	
 	@Before
