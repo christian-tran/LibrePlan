@@ -1,0 +1,3 @@
+--INSERT INTO user_table (ID, VERSION, LOGIN_NAME, PASSWORD, EMAIL, FIRST_NAME, LAST_NAME) VALUES ('1831', '1', 'user1', 'user1', 'user1@test.fr', 'prenom_user1', 'nom_user1');
+--INSERT INTO resource (ID, VERSION, CODE) VALUES ('1946','1',"WORKER0014");
+--INSERT INTO worker (WORKER_ID, FIRST_NAME, SURNAME, NIF, USER_ID) VALUES ('1946', 'prenom_user1', 'nom_user1', 'user1', '1831');

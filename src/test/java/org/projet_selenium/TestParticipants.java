@@ -3,9 +3,15 @@ package org.projet_selenium;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.Reader;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Handler;
 
+import org.apache.ibatis.jdbc.ScriptRunner;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,8 +39,8 @@ public class TestParticipants {
 		driver = OutilTechnique.choisirNavigateur(ENavigateur.chrome);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		OutilTechnique.connexion();
-		
-//		BDDConnexion.insertData("src/test/JDD/JDD.xml");
+		//JDD
+//		BDDConnexionJavaSql.modifBDD("src/test/JDD/JDD.sql");
 		
 	}
 	
@@ -42,8 +48,8 @@ public class TestParticipants {
 	public void tearDown() throws Exception {
 		
 		driver.quit();
-//		BDDConnexion.deleteData("src/test/JDD/nettoyage.xml");
-		
+		//Nettoyage BDD
+//		BDDConnexionJavaSql.modifBDD("src/test/JDD/nettoyage.sql");
 	}
 	
 	@Test
@@ -92,18 +98,20 @@ public class TestParticipants {
 		//Tests si un bouton bleu [Plus d'options] est présent
 		assertTrue("Le bouton 'Plus d'options' n'est pas affiché", page_Participants.boutton_options.isDisplayed());
 //		System.out.println(page_Participants.boutton_options_couleur.getCssValue("background-color"));
-		Logger.info(page_Participants.boutton_options_couleur.getCssValue("background-color"));
+//		Logger.info(page_Participants.boutton_options_couleur.getCssValue("background-color"));
 		assertEquals("Le bouton 'Plus d'options' n'est pas bleu", "rgba(240, 250, 255, 1)", page_Participants.boutton_options_couleur.getCssValue("background-color"));
 
 		//Tests si un bouton vert [Filtre] est présent
 		assertTrue("Le bouton 'Filtre' n'est pas affiché", page_Participants.boutton_filtre.isDisplayed());
 //		System.out.println(page_Participants.boutton_filtre_couleur.getCssValue("background-color"));
 		assertEquals("Le bouton 'Filtre' n'est pas vert", "rgba(228, 243, 217, 1)", page_Participants.boutton_filtre_couleur.getCssValue("background-color"));
-		
-		
+				
 		//Test si le bouton créer est présent
 		assertTrue("Le bouton créer n'est pas affiché", page_Participants.boutton_creer.isDisplayed());
 
+		String page_participant="affichage_page_participant";
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\'"+page_participant+"'.png");
+		
 	//Pas de test 3
 		
 		//Clic sur le bouton créer
@@ -132,7 +140,20 @@ public class TestParticipants {
 				OutilTechnique.remplirChamp(page_Participants.input_ID_participant, "jdu");
 				
 				page_Participants.bouton_radio_creer.click();
+				
+				OutilTechnique.remplirChamp(page_Participants.input_nom_user_participant, "jdu");
+				OutilTechnique.remplirChamp(page_Participants.input_mdp_participant, "$jdumdp1");
+				OutilTechnique.remplirChamp(page_Participants.input_mdp_confirm_participant, "$jdumdp1");
+				
+		//Clic sur bouton enregistrer		
+				page_Participants.boutton_enregistrer.click();
 		
+		//Test si le message "Participant enregistré"
+				assertEquals("Le message n'est pas affiché","Participant enregistré",page_Participants.message_enregistrement_participant.getText());
+		
+				String enr_participant="message_enregistrement_participant";
+				OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\'"+enr_participant+"'.png");
+				
 		Thread.sleep(pause);
 		
 	}

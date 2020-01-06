@@ -22,10 +22,9 @@ public class TestCal1 {
 	String username = "admin";
 	String pwd = "admin";
 	String onglet = "Calendrier";
-	long pause = 5000;
+	long pause = 2000;
 	String nom_calendrier = "Calendrier - Test 1";
 	String nom_calendrier1 = "Calendrier - Test Calendrier Derive";
-	String nom_calendrier2 = "Créer Calendrier: Calendrier - Test Calendrier Derive";
 	String btn_derive = "Calendrier - Test bouton [dérive]2";
 	int ligne;
 	
@@ -36,7 +35,7 @@ public class TestCal1 {
 		OutilTechnique.connexion();
 			}
 	
-	//@After
+	@After
 	public void tearDown() {
 		
 		driver.quit();
@@ -148,15 +147,32 @@ public class TestCal1 {
 			page_Calendrier.creercalendrierderive.click();
 			PageFactory.initElements(driver, PageCalendrier.class);
 			
-			wait.until(ExpectedConditions.elementToBeClickable(page_Calendrier.btn_annuler1));
+			wait.until(ExpectedConditions.elementToBeClickable(page_Calendrier.btn_annuler1));	
 			
-			b.moveToElement(page_Calendrier.btn_annuler1).build().perform();
-			b.moveToElement(page_Calendrier.btn_annuler1).click().build().perform();	
-								
+			//Click sur bouton annuler
 			page_Calendrier.btn_annuler1.click();
 			
+			wait.until(ExpectedConditions.visibilityOf(page_Calendrier.listecalendrier));
 			
-			// Pour cliquer sur btn_annuler1 test ok mais ne fonctionne pas
+			//Vérification retour page liste calendrier - 08
+			assertTrue(page_Calendrier.listecalendrier.isDisplayed());
+			assertTrue(page_Calendrier.btn_moins_calendrier_test_1.isDisplayed());
+			assertTrue(OutilTechnique.chercherElement(driver, nom_calendrier, page_Calendrier.xpath_tableau1));
+			assertTrue(OutilTechnique.chercherElement(driver, nom_calendrier1, page_Calendrier.xpath_tableau1));
+			
+			//Click sur bouton [-]
+			page_Calendrier.btn_moins_calendrier_test_1.click();
+			
+			//Vérification arborescence se referme - 09
+			assertFalse(page_Calendrier.calendrier_test_calendrier_derive.isDisplayed());
+			
+			page_Calendrier.btn_moins_calendrier_test_1.click();
+			
+			//Click sur icone créer une copie dans colonne opération
+			//ligne = OutilTechnique.retournerNumeroDeLigne(driver, nom_calendrier, page_Calendrier.xpath_tableau1);
+			//driver.findElement(By.xpath("//tr["+ligne+"]//img[@src='/libreplan/common/img/ico_editar1.png']")).click();
+			
+			
 						
 			Thread.sleep(pause);
 }
