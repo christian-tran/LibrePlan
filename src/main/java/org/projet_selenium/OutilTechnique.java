@@ -1,16 +1,19 @@
-package org.projet_selenium;
+	package org.projet_selenium;
 
-import static org.junit.Assert.assertTrue;
 
+
+import java.io.File;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
 public class OutilTechnique {
@@ -72,6 +75,34 @@ static WebDriver driver;
 		   }
 		}
 		return false;
+	}
+	
+	static int retournerNumeroDeLigne(WebDriver driver, String s, String xpath){ 
+		int ligneCourante = 1;
+		List<WebElement> lignes = driver.findElements(By.xpath(xpath));
+		for(WebElement ligne : lignes){
+		   List<WebElement> cases = ligne.findElements(By.xpath("td"));
+		   for(WebElement cellule : cases) {
+			   if(cellule.getText().equals(s)){
+				   return ligneCourante;	
+			   }
+		   }
+	      ligneCourante++;
+		}
+		return -1;
+	}
+	
+	public static void takeSnapShot(WebDriver webdriver,String fileWithPath) throws Exception{
+
+		//Convert web driver object to TakeScreenshot
+		TakesScreenshot scrShot =((TakesScreenshot)webdriver);
+		//Call getScreenshotAs method to create image file
+		File SrcFile=scrShot.getScreenshotAs(OutputType.FILE);
+		//Move image file to new destination
+		File DestFile=new File(fileWithPath);
+		//Copy file at destination
+		FileUtils.copyFile(SrcFile, DestFile);
+		
 	}
 
 }

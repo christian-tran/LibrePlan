@@ -1,9 +1,7 @@
 package org.projet_selenium;
 
 import static org.junit.Assert.*;
-
 import java.util.concurrent.TimeUnit;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,14 +18,14 @@ public class testRessourcesAvancement {
 	public void setUp() throws InterruptedException
 	{
 		driver = OutilTechnique.choisirNavigateur(ENavigateur.firefox) ;
-		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS) ;
+		driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS) ;
 		OutilTechnique.connexion() ;	
 	}
 		
 	@After
 	public void tearDown() throws InterruptedException
 	{
-		Thread.sleep(5000) ;
+		Thread.sleep(8000) ;
 		driver.quit();	
 	}
 	
@@ -61,21 +59,61 @@ public class testRessourcesAvancement {
 		page_Ressource.button_creer.click() ;
 		
 		//verif elements nécessaires à la suite des actions
-		assertTrue(page_Ressource.titre_type_avancement.isDisplayed()) ;//titre localisation
-		assertTrue(page_Ressource.tab_modif.isDisplayed()) ;			//
-		page_Ressource.nom_unit.equals(null) ; 					//champ vide
-		page_Ressource.actif.isEnabled() ;						//case cochée par defaut
-		page_Ressource.val_max.getText().equals("100,00") ;		//defaut 100,00
-		page_Ressource.val_max.getText().equals("0,1000") ;		//defaut 0,1000
+		assertTrue(page_Ressource.titre_type_avancement.isDisplayed()) ;//titre localisation dans la navigation
+		assertTrue(page_Ressource.tab_modif.getText().equals("Modifier")) ;
+		
+		assertEquals("Nom d'unité",page_Ressource.nom_unit.getText()) ;
+		assertEquals("Actif",page_Ressource.actif.getText()) ;
+		assertEquals("Valeur maximum par défaut", page_Ressource.val_max.getText()) ;
+		assertEquals("Précision",page_Ressource.precision.getText()) ;
+		assertEquals("Type",page_Ressource.type.getText()) ;
+		assertEquals("Pourcentage",page_Ressource.pourcentage.getText()) ;
+		
 		
 		//Pour montrer que le champ type n'est pas modifiable on tente 'try' d'y insérer
 		// du texte. Cela génère une Exception que l'on catch.
-		try { page_Ressource.type.sendKeys("test") ; }
-		catch (Exception e) 
-		{ //assertTrue("user non modifiable", true) ; }
-		}
-		// case non cochée par défaut
-		assertFalse(page_Ressource.pourcentage.isSelected()) ;
+		
+		assertEquals("",page_Ressource.champ_nom_unit.getText()) ; 	//champ vide
+		assertTrue(page_Ressource.checkbox_actif.isSelected()) ;	//case cochée par defaut
+		assertEquals("100,00", page_Ressource.champ_val_max.getAttribute("value"));//defaut 100,00
+		assertEquals("0,1000", page_Ressource.champ_precision.getAttribute("value")) ;//defaut 0,1000
+		try {  page_Ressource.champ_type.sendKeys("test") ; }
+		catch (Exception e) { /* mettre un logger ici */ }
+		assertFalse(page_Ressource.checkbox_pourcentage.isSelected()) ;	// case non cochée par défaut
+		assertTrue(page_Ressource.bouton_annuler.isDisplayed()) ;		//presence du bouton Annuler
+		assertTrue(page_Ressource.bouton_sauver_continuer.isDisplayed()) ;
+		assertTrue(page_Ressource.bouton_enregistrer.isDisplayed()) ;
+		
+		//Remplissage du tableau test 1, sans pourcentage
+		page_Ressource.champ_nom_unit.sendKeys("Type d'avancement - Test 1") ;
+		page_Ressource.checkbox_actif.click() ;
+		OutilTechnique.remplirChamp(page_Ressource.champ_val_max, "10,00");
+		assertEquals("User",page_Ressource.champ_type.getText()) ;
+		
+		//click bouton enregistrer
+		page_Ressource.bouton_enregistrer.click() ;
+		
+		assertTrue(page_Ressource.titre_liste_avancement.isDisplayed()) ;
+		assertEquals("Type d'avancement \"Type d'avancement - Test 1\" enregistré", page_Ressource.enregistrement_confirm.getText()) ;
+		//driver.navigate().refresh() ;
+		assertEquals("Type d'avancement \"Type d'avancement - Test 1\" enregistré", page_Ressource.avancement_cree_tab.getText()) ;
+		assertFalse(page_Ressource.checkbox_active.isEnabled()) ;
+		assertFalse(page_Ressource.checkbox_predefini.isEnabled()) ;
+		assertTrue(page_Ressource.bouton_operations_modif.isDisplayed()) ;
+		assertTrue(page_Ressource.bouton_operations_del.isDisplayed()) ;
+		
+		assertTrue(page_Ressource.checkbox_active.isSelected()) ;
+		assertTrue(page_Ressource.checkbox_predefini.isSelected()) ;
+		assertTrue(page_Ressource.bouton_operations_modif.isEnabled()) ;
+		assertTrue(page_Ressource.bouton_operations_del.isEnabled()) ;
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 		

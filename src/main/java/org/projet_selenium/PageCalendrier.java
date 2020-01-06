@@ -6,8 +6,11 @@ import org.openqa.selenium.support.FindBy;
 
 public class PageCalendrier extends PageAbstractBandeau {
 	
-	@FindBy (xpath = "//*[text() = 'Liste de calendriers']")
-	WebElement listecalendrier;
+@FindBy (xpath = "//*[text() = 'Liste de calendriers']")
+WebElement listecalendrier;
+
+@FindBy (xpath = "//td[contains(.,'Créer Calendrier')]")
+WebElement creerCalendrier;
 	
 @FindBy (xpath = "//table//div[@class='z-treecol-cnt'][text()='Nom']")
 WebElement nom;
@@ -42,12 +45,40 @@ WebElement btn_annuler;
 @FindBy (xpath = "//input[@class='z-textbox']")
 WebElement champ_nom;
 
+@FindBy (xpath = "//input[@class='z-textbox z-textbox-text-invalid']")
+WebElement champ_nom1;
+
 @FindBy (xpath = "//span[@class='z-checkbox']/label[text()='Générer le code']/preceding::input[@type='checkbox']")
 WebElement checkbox_gencode;
 
 @FindBy (xpath = "//span[@class='z-label'][text()='Calendrier - Test 1']")
 WebElement calendriertest1;
 
+String xpath_tableau1 = "//div[@class='z-dottree-body']//table//tbody[@class='z-treechildren']//tr[@class='z-treerow']";
+
+@FindBy (xpath = "//span[@class='z-label'][text()='Dérivé du calendrier Calendrier - Test 1']")
+WebElement champ_type;
+
+@FindBy (xpath = "//span[@class='z-label'][text() = 'Calendrier - Test 1 existe déjà']")
+WebElement msg_cal_existant;
+
+@FindBy (xpath = "//*[text() = 'Créer Calendrier: Calendrier - Test Calendrier Derive']")
+WebElement creercalendrierderive;
+
+@FindBy (xpath = "//*[text() = 'Calendrier de base \"Calendrier - Test Calendrier Derive\" enregistré']")
+WebElement msg_cal_derive;
+
+@FindBy (xpath = "(//td[text()='Annuler'])[1]")
+WebElement btn_annuler1;
+
+@FindBy (xpath = "//img[@src='/libreplan/common/img/axuda.gif']")
+WebElement btn_aide;
+
+@FindBy (xpath = "//span[contains(@class,'z-dottree-ico z-dottree-root')]")
+WebElement btn_moins_calendrier_test_1;
+
+@FindBy (xpath = "//span[text()='Calendrier - Test Calendrier Derive']")
+WebElement calendrier_test_calendrier_derive;
 
 }
 

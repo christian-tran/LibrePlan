@@ -7,11 +7,14 @@ import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class TestCritere {
 	
@@ -22,11 +25,16 @@ public class TestCritere {
 	String username = "admin";
 	String pwd = "admin";
 	String onglet = "Calendrier";
+	String select_type = "PARTICIPANT";
 	String nom_button_annuler = "Critère - Test bouton [Annuler]";
 	String desc_button_annuler = "Critère - Test bouton [Annuler]";
 	String nom_button_enregistrer = "Critère - Test bouton [Enregistrer]";
-	String select_type = "PARTICIPANT";
 	String desc_button_enregistrer = "Critère - Test bouton [Enregistrer]";
+	String nom_button_sauver_continuer = "Critère - Test bouton [Sauver et continuer]";
+	String desc_button_sauver_continuer = "Critère - Test bouton [Sauver et continuer]";
+	String nom_button_sauver_continuer_2 = "Critère - Test bouton [Sauver et continuer]2";
+	static Logger logger = LoggerFactory.getLogger(TestParticipants.class);
+	int ligne;
 	
 	@Before
 	public void setUp() throws InterruptedException {
@@ -42,7 +50,7 @@ public class TestCritere {
 	}
 	
 	@Test
-	public void cri01() throws InterruptedException {
+	public void cri01() throws Exception {
 		
 		
 		WebDriverWait wait = new WebDriverWait(driver,10);
@@ -51,6 +59,7 @@ public class TestCritere {
 		//Test pour voir si le login s'est bien déroulé
 		wait.until(ExpectedConditions.visibilityOf(page_Accueil.button_logout));
 		assertTrue("La page accueil n'est pas affichée", page_Accueil.onglet_calendrier.isDisplayed());
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_01.png");
 		
 		//Mouse-over et accès page critères
 		Actions a = new Actions(driver);
@@ -76,7 +85,7 @@ public class TestCritere {
 		
 		//Test si le bouton créé est présent
 		assertTrue("Le bouton créer n'est pas présent", page_Critere.button_creer.isDisplayed());
-		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_02.png");
 		//Click sur le bouton créer
 		page_Critere.button_creer.click();
 		
@@ -88,8 +97,11 @@ public class TestCritere {
 		assertTrue("Le boutton Enregistrer ne s'est pas affiché", page_Critere.button_sauver_continuer.isDisplayed());
 		assertTrue("Le boutton Enregistrer ne s'est pas affiché", page_Critere.button_annuler.isDisplayed());
 		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_03.png");
+		
 		//Test bouton Annuler, renseigner les champs du formulaire
 		OutilTechnique.remplirChamp(page_Critere.input_nom_critere, nom_button_annuler);
+		page_Critere.combobox_type.clear();
 		page_Critere.combobox_type.sendKeys(select_type);
 		OutilTechnique.remplirChamp(page_Critere.input_desc_critere, desc_button_annuler);
 		
@@ -102,11 +114,14 @@ public class TestCritere {
 		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
 		assertFalse("Le bouton annulé a été créé",OutilTechnique.chercherElement(driver, nom_button_annuler,page_Critere.xpath_tableau));
 		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_04.png");
+		
 		//Click sur le bouton créer, étape manquante dans le cas de test
 		page_Critere.button_creer.click();
 		
 		//Test bouton Enregistrer, renseigner les champs du formulaire
 		OutilTechnique.remplirChamp(page_Critere.input_nom_critere, nom_button_enregistrer);
+		page_Critere.combobox_type.clear();
 		page_Critere.combobox_type.sendKeys(select_type);
 		OutilTechnique.remplirChamp(page_Critere.input_desc_critere, desc_button_enregistrer);
 		
@@ -117,7 +132,138 @@ public class TestCritere {
 		
 		//Vérification de retour et bouton enregistrer créé
 		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
-		assertTrue("Le bouton annulé a été créé",OutilTechnique.chercherElement(driver, nom_button_enregistrer,page_Critere.xpath_tableau));
+		assertTrue("Le bouton enregistrer n'a pas été créé",OutilTechnique.chercherElement(driver, nom_button_enregistrer,page_Critere.xpath_tableau));
+		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_05.png");
+		
+		//Click sur le bouton créer, étape manquante dans le cas de test
+		page_Critere.button_creer.click();
+		
+		//Test bouton Enregistrer, renseigner les champs du formulaire
+		OutilTechnique.remplirChamp(page_Critere.input_nom_critere, nom_button_sauver_continuer);
+		page_Critere.combobox_type.clear();
+		page_Critere.combobox_type.sendKeys(select_type);
+		OutilTechnique.remplirChamp(page_Critere.input_desc_critere, desc_button_sauver_continuer);
+		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_06.png");
+		
+		//Click sur bouton sauver et continuer
+		page_Critere.button_sauver_continuer.click();
+		
+		//Test sur message de confirmation et titre page
+		assertEquals("Le message de confirmation n'a pas été affiché","Type de critère \"Critère - Test bouton [Sauver et continuer]\" enregistré", page_Critere.text_confirmation_action_sauver_continuer.getText());
+		assertEquals("Le titre n'est pas le bon","Modifier Type de critère: Critère - Test bouton [Sauver et continuer]", page_Critere.text_modification_critere.getText());
+		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_07.png");
+		
+		//Click sur bouton annuler
+		page_Critere.button_annuler.click();
+		
+		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_page_criteres));
+		
+		//Vérification de retour et bouton sauver et continuer créé
+		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
+		assertTrue("Le bouton sauver et continuer n'a pas été créé",OutilTechnique.chercherElement(driver, nom_button_sauver_continuer,page_Critere.xpath_tableau));
+		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_08.png");
+		
+		//Click sur le bouton modifier de la colonne opération et de la ligne sauver et continuer
+		ligne = OutilTechnique.retournerNumeroDeLigne(driver, nom_button_sauver_continuer, page_Critere.xpath_tableau);
+		driver.findElement(By.xpath("//tr["+ligne+"]//img[@src='/libreplan/common/img/ico_editar1.png']")).click();
+		
+		
+		//Vérifier qu'on se trouve bien sur la page de modification de sauver et continuer
+		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_modification_critere));
+		assertEquals("La page n'est pas la bonne","Modifier Type de critère: Critère - Test bouton [Sauver et continuer]", page_Critere.text_modification_critere.getText());
+		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_09.png");
+		
+		//Changement du nom de sauver et continuer
+		OutilTechnique.remplirChamp(page_Critere.input_nom_critere, nom_button_sauver_continuer_2);
+		
+		//Click sur annuler
+		page_Critere.button_annuler.click();
+		
+		//Verification retour et non changement du nom de sauver et continuer
+		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_page_criteres));
+		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
+		assertEquals("Le titre a été changé","Critère - Test bouton [Sauver et continuer]", page_Critere.nom_button_sauver_continuer.getText());
+		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_10.png");
+		
+		//Click sur le nom du critere sauver et continuer
+		page_Critere.nom_button_sauver_continuer.click();
+		
+		//Vérifier qu'on se trouve bien sur la page de modification de sauver et continuer
+		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_modification_critere));
+		assertEquals("La page n'est pas la bonne","Modifier Type de critère: Critère - Test bouton [Sauver et continuer]", page_Critere.text_modification_critere.getText());
+		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_11.png");
+		
+		//Changement du nom de sauver et continuer
+		OutilTechnique.remplirChamp(page_Critere.input_nom_critere, nom_button_sauver_continuer_2);
+		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_12.png");
+		
+		//Click sur bouton sauver et continuer
+		page_Critere.button_sauver_continuer.click();
+						
+		//Test sur message de confirmation et titre page
+		assertEquals("Le message de confirmation n'a pas été affiché","Type de critère \"Critère - Test bouton [Sauver et continuer]2\" enregistré", page_Critere.text_confirmation_action_sauver_continuer.getText());
+		assertEquals("Le titre n'est pas le bon","Modifier Type de critère: Critère - Test bouton [Sauver et continuer]2", page_Critere.text_modification_critere.getText());
+		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_13.png");
+		
+		//Click sur annuler
+		page_Critere.button_annuler.click();
+		
+		//Vérification retour et changement du nom de sauver et continuer
+		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_page_criteres));
+		assertTrue("La page Critère n'a pas été affiché", page_Critere.text_page_criteres.isDisplayed());
+		assertEquals("Le titre n'a pas été changé","Critère - Test bouton [Sauver et continuer]2", page_Critere.nom_button_sauver_continuer.getText());
+		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_14.png");
+		
+		//Click sur le bouton supprimer de la colonne opération et de la ligne sauver et continuer
+		ligne = OutilTechnique.retournerNumeroDeLigne(driver, nom_button_sauver_continuer_2, page_Critere.xpath_tableau);
+		driver.findElement(By.xpath("//tr["+ligne+"]//img[@src='/libreplan/common/img/ico_borrar1.png']")).click();
+		
+		//Vérification message dans la pop up de suppression
+		assertEquals("Le message de la pop up de suppression est érronée","Supprimer Type de critère \"Critère - Test bouton [Sauver et continuer]2\". Êtes-vous sûr ?", page_Critere.message_pop_up_suppression.getText());
+		assertTrue("Le bouton OK n'est pas affiché", page_Critere.button_ok_pop_up.isDisplayed());
+		assertTrue("Le bouton Annuler n'est pas affiché", page_Critere.button_annuler_pop_up.isDisplayed());
+		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_15.png");
+		
+		//Click sur bouton annuler
+		page_Critere.button_annuler_pop_up.click();
+		
+		//Vérification de retour sur page et non suppression
+		wait.until(ExpectedConditions.visibilityOf(page_Critere.text_page_criteres));
+		assertTrue("La pop up est toujours présente a l'écran",page_Critere.text_page_criteres.isDisplayed());
+		assertTrue("Le bouton sauver et continuer a été supprimé",OutilTechnique.chercherElement(driver, nom_button_sauver_continuer_2,page_Critere.xpath_tableau));
+		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_16.png");
+		
+		//Click sur la poubelle de la colonne opération et de la ligne sauver et continuer
+		ligne = OutilTechnique.retournerNumeroDeLigne(driver, nom_button_sauver_continuer_2, page_Critere.xpath_tableau);
+		driver.findElement(By.xpath("//tr["+ligne+"]//img[@src='/libreplan/common/img/ico_borrar1.png']")).click();
+		
+		//Vérification message dans la pop up de suppression
+		assertEquals("Le message de la pop up de suppression est érronée","Supprimer Type de critère \"Critère - Test bouton [Sauver et continuer]2\". Êtes-vous sûr ?", page_Critere.message_pop_up_suppression.getText());
+		assertTrue("Le bouton OK n'est pas affiché", page_Critere.button_ok_pop_up.isDisplayed());
+		assertTrue("Le bouton Annuler n'est pas affiché", page_Critere.button_annuler_pop_up.isDisplayed());
+		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_17.png");
+		
+		//Click sur le bouton OK
+		page_Critere.button_ok_pop_up.click();
+		
+		//Vérification message de suppression
+		assertTrue("Le message de suppresion n'est pas affiché", page_Critere.text_suppression_critere.isDisplayed());
+		assertFalse("Le bouton sauver et continuer 2 n'a pas été éffacé",OutilTechnique.chercherElement(driver, nom_button_sauver_continuer_2,page_Critere.xpath_tableau));
+		
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_18.png");
 		
 		Thread.sleep(pause);
 		

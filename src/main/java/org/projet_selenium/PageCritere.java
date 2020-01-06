@@ -1,12 +1,7 @@
 package org.projet_selenium;
 
-import java.util.List;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 
 public class PageCritere extends PageAbstractBandeau {
 	
@@ -54,6 +49,31 @@ public class PageCritere extends PageAbstractBandeau {
 	
 	@FindBy (xpath = "//i[@class='z-combobox']/input")
 	WebElement combobox_type;
+	
+	@FindBy (xpath = "//img[@class='tick']/following-sibling::span[contains(.,'continuer')]")
+	WebElement text_confirmation_action_sauver_continuer;
+	
+	@FindBy (xpath = "//td[@class='z-caption-l']")
+	WebElement text_modification_critere;
+	
+	@FindBy (xpath = "//span[@title='Critère - Test bouton [Sauver et continuer]']")
+	WebElement nom_button_sauver_continuer;
+	
+	@FindBy (xpath = "//div[@class='z-messagebox']//span[@class='z-label']")
+	WebElement message_pop_up_suppression;
+	
+	@FindBy (xpath = "//td[text()='OK']")
+	WebElement button_ok_pop_up;
+	
+	@FindBy (xpath = "//div[@class='z-window-modal-cm']//td[text()='Annuler']")
+	WebElement button_annuler_pop_up;
+	
+	@FindBy (xpath = "//div[@class='z-window-modal-header z-window-modal-header-move']")
+	WebElement pop_up_supprimer;
+	
+	@FindBy (xpath = "//span[contains(.,'[Sauver et continuer]2\" supprimé')]")
+	WebElement text_suppression_critere;
+	
 	
 	String xpath_tableau = "//div[@class='clickable-rows z-grid']//table//tbody[@class='z-rows']/tr";
 

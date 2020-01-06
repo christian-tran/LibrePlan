@@ -7,9 +7,12 @@ import java.util.concurrent.TimeUnit;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TestCal1 {
 
@@ -19,16 +22,20 @@ public class TestCal1 {
 	String username = "admin";
 	String pwd = "admin";
 	String onglet = "Calendrier";
-	long pause = 3000;
+	long pause = 2000;
 	String nom_calendrier = "Calendrier - Test 1";
+	String nom_calendrier1 = "Calendrier - Test Calendrier Derive";
+	String btn_derive = "Calendrier - Test bouton [dérive]2";
+	int ligne;
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws InterruptedException {
 		driver = OutilTechnique.choisirNavigateur(ENavigateur.chrome);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		OutilTechnique.connexion();
 			}
 	
-	//@After
+	@After
 	public void tearDown() {
 		
 		driver.quit();
@@ -39,8 +46,10 @@ public class TestCal1 {
 	public void cal1() throws InterruptedException {
 	//Connection au site et login
 			driver.get("http://localhost:8090/libreplan/");
-			PageLogin page_Login = PageFactory.initElements(driver, PageLogin.class);
-			PageAccueil page_Accueil = page_Login.logIn(driver, username, pwd);
+	
+			
+			WebDriverWait wait = new WebDriverWait(driver,10);
+			PageAccueil page_Accueil = PageFactory.initElements(driver, PageAccueil.class) ;
 			
 			//Test pour voir si le login s'est bien déroulé
 			assertTrue(page_Accueil.onglet_calendrier.isDisplayed());
@@ -88,14 +97,83 @@ public class TestCal1 {
 			assertTrue("La checkbox 'Générer le code n'est pas cochée'", page_Calendrier.checkbox_gencode.isSelected());
 				
 			page_Calendrier.btn_enr.click();
-			Thread.sleep(pause);
+			
+			// Attente temps de chargement de la page
+			wait.until(ExpectedConditions.visibilityOf(page_Calendrier.listecalendrier));
 			
 			//Test pour voir si on arrive bien sur la page Liste des calendriers
 			assertTrue("On ne retourne pas sur la Liste de Calendriers", page_Calendrier.listecalendrier.isDisplayed());
-			
+			//Vérifie la présence du calendrier Test 1 créé
 			assertTrue(page_Calendrier.calendriertest1.isDisplayed());
 			
+			// Cliquer sur créer une dérive  dans la colonne opération pour le calendrier "Calendrier - Test 1"
+			ligne = OutilTechnique.retournerNumeroDeLigne(driver, nom_calendrier, page_Calendrier.xpath_tableau1);
+			driver.findElement(By.xpath("//tr["+ligne+"]//img[@src='/libreplan/common/img/ico_derived1.png']")).click();
 			
+			//Test pour voir si on arrive bien sur Créer Calendrier	
+			assertTrue(page_Calendrier.creercalendrier.isDisplayed());
+			
+			//Vérifier le contenu des champs Nom/Type dans la création dérive
+			assertEquals("", page_Calendrier.champ_nom.getText());
+			assertEquals("Dérivé du calendrier Calendrier - Test 1", page_Calendrier.champ_type.getText());
+			
+			//Remplir le champ nom, vérifier que la box soit bien checkée
+			OutilTechnique.remplirChamp(page_Calendrier.champ_nom, nom_calendrier);
+			assertTrue("La checkbox 'Générer le code n'est pas cochée'", page_Calendrier.checkbox_gencode.isSelected());
+			//Cliquer sur le bouton Enregistrer et continuer
+			page_Calendrier.btn_enretcon.click();
+			
+			// Attente temps de chargement de la page
+			//wait.until(ExpectedConditions.visibilityOf(page_Calendrier.listecalendrier));
+			
+			assertTrue("Le message d'erreur est absent", page_Calendrier.msg_cal_existant.isDisplayed());
+			
+			wait.until(ExpectedConditions.visibilityOf(page_Calendrier.creerCalendrier));
+			
+			//Remplir le champ nom, vérifier que la box soit bien checkée (le champ nom change de xpath quand on supprime son contenu)
+			 
+			page_Calendrier.champ_nom.clear();
+			page_Calendrier.champ_nom1.sendKeys(nom_calendrier1);
+			
+			assertTrue("La checkbox 'Générer le code n'est pas cochée'", page_Calendrier.checkbox_gencode.isSelected());
+			//Cliquer sur le bouton Enregistrer et continuer
+			page_Calendrier.btn_enretcon.click();	
+			
+			//Test pour voir si on arrive bien sur Créer Calendrier	
+			assertTrue(page_Calendrier.creercalendrierderive.isDisplayed());
+			assertTrue (page_Calendrier.msg_cal_derive.isDisplayed());
+			
+			assertTrue(page_Calendrier.btn_annuler1.isDisplayed());
+			page_Calendrier.creercalendrierderive.click();
+			PageFactory.initElements(driver, PageCalendrier.class);
+			
+			wait.until(ExpectedConditions.elementToBeClickable(page_Calendrier.btn_annuler1));	
+			
+			//Click sur bouton annuler
+			page_Calendrier.btn_annuler1.click();
+			
+			wait.until(ExpectedConditions.visibilityOf(page_Calendrier.listecalendrier));
+			
+			//Vérification retour page liste calendrier - 08
+			assertTrue(page_Calendrier.listecalendrier.isDisplayed());
+			assertTrue(page_Calendrier.btn_moins_calendrier_test_1.isDisplayed());
+			assertTrue(OutilTechnique.chercherElement(driver, nom_calendrier, page_Calendrier.xpath_tableau1));
+			assertTrue(OutilTechnique.chercherElement(driver, nom_calendrier1, page_Calendrier.xpath_tableau1));
+			
+			//Click sur bouton [-]
+			page_Calendrier.btn_moins_calendrier_test_1.click();
+			
+			//Vérification arborescence se referme - 09
+			assertFalse(page_Calendrier.calendrier_test_calendrier_derive.isDisplayed());
+			
+			page_Calendrier.btn_moins_calendrier_test_1.click();
+			
+			//Click sur icone créer une copie dans colonne opération
+			//ligne = OutilTechnique.retournerNumeroDeLigne(driver, nom_calendrier, page_Calendrier.xpath_tableau1);
+			//driver.findElement(By.xpath("//tr["+ligne+"]//img[@src='/libreplan/common/img/ico_editar1.png']")).click();
+			
+			
+						
 			Thread.sleep(pause);
 }
 }
