@@ -29,10 +29,10 @@ public class BDDConnexion {
 		databaseTester.onSetup();
 	}
 
-	public static void deleteAllData(String path_to_file) throws Exception {
+	public static void deleteData(String path_to_file) throws Exception {
 		IDataSet dataset = readDataSet(path_to_file);
 		IDatabaseTester databaseTester = new JdbcDatabaseTester(DRIVER, JDBC_URL, USER, PASSWORD);
-		databaseTester.setSetUpOperation(DatabaseOperation.DELETE_ALL);
+		databaseTester.setSetUpOperation(DatabaseOperation.DELETE);
 		databaseTester.setDataSet(dataset);
 		databaseTester.onSetup();
 	}

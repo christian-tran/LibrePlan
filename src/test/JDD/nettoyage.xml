@@ -1,3 +1,4 @@
 <dataset>
-	<user_table />
+	<roles_table user_id='1826' role="ROLE_BOUND_USER" />
+	<user_table id='1826' version='1' login_name='user1'  password='user1' email='user1@test.fr'  first_name='prenom_user1' last_name='nom_user1'/>
 </dataset>
