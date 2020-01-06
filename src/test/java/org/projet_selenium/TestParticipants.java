@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Handler;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,6 +12,9 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 public class TestParticipants {
 	
@@ -20,13 +24,16 @@ public class TestParticipants {
 	String username = "admin";
 	String pwd = "admin";
 	String onglet = "Calendrier";
-	long pause = 3000;
+	long pause = 2000;
+	
+	static Logger logger = LoggerFactory.getLogger(TestParticipants.class);
 	
 	@Before
 	public void setUp() throws Exception {
 		driver = OutilTechnique.choisirNavigateur(ENavigateur.chrome);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		OutilTechnique.connexion();
+		
 //		BDDConnexion.insertData("src/test/JDD/JDD.xml");
 		
 	}
@@ -85,6 +92,7 @@ public class TestParticipants {
 		//Tests si un bouton bleu [Plus d'options] est présent
 		assertTrue("Le bouton 'Plus d'options' n'est pas affiché", page_Participants.boutton_options.isDisplayed());
 //		System.out.println(page_Participants.boutton_options_couleur.getCssValue("background-color"));
+		Logger.info(page_Participants.boutton_options_couleur.getCssValue("background-color"));
 		assertEquals("Le bouton 'Plus d'options' n'est pas bleu", "rgba(240, 250, 255, 1)", page_Participants.boutton_options_couleur.getCssValue("background-color"));
 
 		//Tests si un bouton vert [Filtre] est présent
@@ -110,16 +118,18 @@ public class TestParticipants {
 		String creer_participant="page_création_participant";
 		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\'"+creer_participant+"'.png");
 		
+		logger.info("Test");
+		
 	//Pas de test 4
 		
 	//Pas de test 5
 		
 		//Test renseigner les champs du formulaire Données personnelles
-//				OutilTechnique.remplirChamp(page_Participants.input_prenom_participant, "Jean");
+				OutilTechnique.remplirChamp(page_Participants.input_prenom_participant, "Jean");
 //				page_Participants.combobox_type.clear();
 //				page_Participants.combobox_type.sendKeys(select_type);
 				OutilTechnique.remplirChamp(page_Participants.input_nom_participant, "DU");
-//				OutilTechnique.remplirChamp(page_Participants.input_ID_participant, "jdu");
+				OutilTechnique.remplirChamp(page_Participants.input_ID_participant, "jdu");
 				
 				page_Participants.bouton_radio_creer.click();
 		

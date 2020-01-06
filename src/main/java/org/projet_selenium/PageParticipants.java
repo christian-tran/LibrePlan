@@ -56,15 +56,13 @@ public class PageParticipants extends PageAbstractBandeau {
 	@FindBy (xpath = "//span[text()='Données personnelles']")
 	WebElement onglet_donnees_perso;
 	
-	//a revoir
-	@FindBy (xpath = "//tr[@class='z-row z-grid-odd']//input[@class='z-textbox'][@style='width:500px;']")
+	@FindBy (xpath = "//tr[@class='z-row z-grid-odd']//input[contains(@class,'z-textbox')][@style='width:500px;']")
 	WebElement input_prenom_participant;
 	
 	@FindBy (xpath = "//span[text()='Nom']/following::input[@class='z-textbox'][@style='width:500px;']")
 	WebElement input_nom_participant;
 	
-	//a revoir
-	@FindBy (xpath = "//span[text()='ID']/following::input[@class='z-textbox']")
+	@FindBy (xpath = "//tbody[@class='z-rows']/tr[@class='z-row z-grid-odd']//span[text()='ID']/ancestor::tr/td[2]//input")
 	WebElement input_ID_participant;
 	
 	@FindBy (xpath = "//input[@type='radio']/following-sibling::label[text()='Créer un nouvel utilisateur']")
