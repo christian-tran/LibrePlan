@@ -20,7 +20,7 @@ public class TestParticipants {
 	String username = "admin";
 	String pwd = "admin";
 	String onglet = "Calendrier";
-	long pause = 5000;
+	long pause = 3000;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -32,14 +32,15 @@ public class TestParticipants {
 	}
 	
 	@After
-	public void tearDown() {
+	public void tearDown() throws Exception {
 		
 		driver.quit();
+//		BDDConnexion.deleteData("src/test/JDD/nettoyage.xml");
 		
 	}
 	
 	@Test
-	public void gre01() throws InterruptedException {
+	public void gre01() throws Exception {
 		
 	//Pas de test 1
 		PageAccueil page_Accueil = PageFactory.initElements(driver, PageAccueil.class) ;
@@ -83,13 +84,13 @@ public class TestParticipants {
 		
 		//Tests si un bouton bleu [Plus d'options] est présent
 		assertTrue("Le bouton 'Plus d'options' n'est pas affiché", page_Participants.boutton_options.isDisplayed());
-//		System.out.println(page_Participants.boutton_options.getCssValue("background-color"));
-//		assertEquals("Le bouton 'Plus d'options' n'est pas bleu", "rgba(55, 55, 55, 1)", page_Participants.boutton_options.getCssValue("color"));
+//		System.out.println(page_Participants.boutton_options_couleur.getCssValue("background-color"));
+		assertEquals("Le bouton 'Plus d'options' n'est pas bleu", "rgba(240, 250, 255, 1)", page_Participants.boutton_options_couleur.getCssValue("background-color"));
 
 		//Tests si un bouton vert [Filtre] est présent
 		assertTrue("Le bouton 'Filtre' n'est pas affiché", page_Participants.boutton_filtre.isDisplayed());
 //		System.out.println(page_Participants.boutton_filtre_couleur.getCssValue("background-color"));
-//		assertEquals("Le bouton 'Filtre' n'est pas vert", "rgba(55, 55, 55, 1)", page_Participants.boutton_options.getCssValue("color"));
+		assertEquals("Le bouton 'Filtre' n'est pas vert", "rgba(228, 243, 217, 1)", page_Participants.boutton_filtre_couleur.getCssValue("background-color"));
 		
 		
 		//Test si le bouton créer est présent
@@ -104,9 +105,23 @@ public class TestParticipants {
 		assertEquals("La page de création de participants n'a pas été affiché","Créer un participant",page_Participants.text_page_participants_creer.getText());
 		
 		//Test si l'onglet affiché par défaut est "Données personnelles"
-		assertTrue("L'onglet affiché par défaut n'est pas Données personnelles", page_Participants.onglet_donnees_perso.isDisplayed());
+		assertTrue("L'onglet affiché par défaut n'est pas Données personnelles", page_Participants.onglet_donnees_perso.isEnabled());
 
+		String creer_participant="page_création_participant";
+		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\'"+creer_participant+"'.png");
+		
 	//Pas de test 4
+		
+	//Pas de test 5
+		
+		//Test renseigner les champs du formulaire Données personnelles
+//				OutilTechnique.remplirChamp(page_Participants.input_prenom_participant, "Jean");
+//				page_Participants.combobox_type.clear();
+//				page_Participants.combobox_type.sendKeys(select_type);
+				OutilTechnique.remplirChamp(page_Participants.input_nom_participant, "DU");
+//				OutilTechnique.remplirChamp(page_Participants.input_ID_participant, "jdu");
+				
+				page_Participants.bouton_radio_creer.click();
 		
 		Thread.sleep(pause);
 		
