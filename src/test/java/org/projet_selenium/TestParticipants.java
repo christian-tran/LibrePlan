@@ -18,6 +18,8 @@ import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,6 +63,8 @@ public class TestParticipants {
 	
 	@Test
 	public void gre01() throws Exception {
+		
+		WebDriverWait wait = new WebDriverWait(driver,10);
 		
 	//Pas de test 1
 		PageAccueil page_Accueil = PageFactory.initElements(driver, PageAccueil.class) ;
@@ -149,6 +153,7 @@ public class TestParticipants {
 		//Test renseigner les champs du formulaire Données personnelles
 				OutilTechnique.remplirChamp(page_Participants.input_prenom_participant, "Jean");
 				OutilTechnique.remplirChamp(page_Participants.input_nom_participant, "DU");
+				wait.until(ExpectedConditions.elementToBeClickable(page_Participants.input_ID_participant));
 				OutilTechnique.remplirChamp(page_Participants.input_ID_participant, "jdu");
 				
 				page_Participants.bouton_radio_creer.click();
