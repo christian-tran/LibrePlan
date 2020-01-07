@@ -19,6 +19,7 @@ import org.openqa.selenium.support.PageFactory;
 public class OutilTechnique {
 	
 static WebDriver driver;
+static String navigateur = "Chrome";
 
 	
 	static WebDriver choisirNavigateur(ENavigateur nav) {
@@ -26,11 +27,13 @@ static WebDriver driver;
 			case chrome : 
 				System.setProperty("webdriver.chrome.driver", "src/main/resources/driver/chromedriver.exe");
 				driver = new ChromeDriver();
+				navigateur="Chrome";
 				return driver;
 			
 			case firefox :
 				System.setProperty("webdriver.gecko.driver", "src/main/resources/driver/geckodriver.exe");
 				driver = new FirefoxDriver();
+				navigateur="Firefox";
 				return driver;
 				
 			case ie :
@@ -79,12 +82,13 @@ static WebDriver driver;
 	
 	static int retournerNumeroDeLigne(WebDriver driver, String s, String xpath){ 
 		int ligneCourante = 1;
+		
 		List<WebElement> lignes = driver.findElements(By.xpath(xpath));
 		for(WebElement ligne : lignes){
 		   List<WebElement> cases = ligne.findElements(By.xpath("td"));
 		   for(WebElement cellule : cases) {
 			   if(cellule.getText().equals(s)){
-				   return ligneCourante;	
+				   return ligneCourante;
 			   }
 		   }
 	      ligneCourante++;
