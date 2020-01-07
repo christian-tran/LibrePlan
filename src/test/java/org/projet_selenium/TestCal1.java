@@ -189,7 +189,6 @@ public class TestCal1 {
 			wait.until(ExpectedConditions.visibilityOf(page_Calendrier.listecalendrier));
 			assertTrue(page_Calendrier.listecalendrier.isDisplayed());
 			assertTrue(page_Calendrier.calendrier_test_2.isDisplayed());
-			
-			Thread.sleep(pause);
+
 	}
 }

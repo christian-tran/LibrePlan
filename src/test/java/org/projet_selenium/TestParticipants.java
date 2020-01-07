@@ -254,9 +254,6 @@ public class TestParticipants {
 				PageDashBoard page_DashBoard = PageFactory.initElements(driver, PageDashBoard.class);
 				wait.until(ExpectedConditions.visibilityOf(page_DashBoard.text_page_dashboard));
 				assertTrue("Le user n'a pas reussi à se connecter",page_DashBoard.text_page_dashboard.isDisplayed());
-				
-				
-		Thread.sleep(pause);
 		
 	}
 

@@ -265,8 +265,6 @@ public class TestCritere {
 		
 		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\CRI_01_18.png");
 		
-		Thread.sleep(pause);
-		
 	}
 
 }
