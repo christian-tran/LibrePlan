@@ -56,10 +56,10 @@ public class PageParticipants extends PageAbstractBandeau {
 	@FindBy (xpath = "//span[text()='Données personnelles']")
 	WebElement onglet_donnees_perso;
 	
-	@FindBy (xpath = "//tr[@class='z-row z-grid-odd']//input[contains(@class,'z-textbox')][@style='width:500px;']")
+	@FindBy (xpath = "//tr[contains(@class,'z-row z-grid-odd')]//input[contains(@class,'z-textbox')][contains(@style,'500px;')]")
 	WebElement input_prenom_participant;
 	
-	@FindBy (xpath = "//span[text()='Nom']/following::input[@class='z-textbox'][@style='width:500px;']")
+	@FindBy (xpath = "//span[text()='Nom']/following::input[contains(@class,'z-textbox')][contains(@style,'500px;')]")
 	WebElement input_nom_participant;
 	
 	@FindBy (xpath = "//tbody[@class='z-rows']/tr[@class='z-row z-grid-odd']//span[text()='ID']/ancestor::tr/td[2]//input")
