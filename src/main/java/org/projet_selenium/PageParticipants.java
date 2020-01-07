@@ -80,6 +80,47 @@ public class PageParticipants extends PageAbstractBandeau {
 	@FindBy (xpath = "//td[text()='Enregistrer']")
 	WebElement boutton_enregistrer;
 	
+	@FindBy (xpath = "//td[text()='Sauver et continuer']")
+	WebElement boutton_sauver_continuer;
+	
+	@FindBy (xpath = "//td[text()='Sauver et continuer']/ancestor::span/following::span//td[text()='Annuler']")
+	WebElement boutton_annuler;
+	
 	@FindBy (xpath = "//div[@class='message_INFO']/span")
 	WebElement message_enregistrement_participant;
+	
+	@FindBy (xpath = "//span[text()='DU']")
+	WebElement nom_utilisateur_DU;
+	
+	@FindBy (xpath = "//span[text()='Jean']")
+	WebElement prenom_utilisateur_Jean;
+	
+	@FindBy (xpath = "//table[@class='filtering-area z-hbox']//input[@class='z-textbox']")
+	WebElement champ_detail_personnel;
+	
+	@FindBy (xpath = "(//div[@class='z-groupbox-cnt']//input[@class='z-datebox-inp'])[1]")
+	WebElement champ_periode_active_debut;
+	
+	@FindBy (xpath = "(//div[@class='z-groupbox-cnt']//input[@class='z-datebox-inp'])[2]")
+	WebElement champ_periode_active_fin;
+	
+	@FindBy (xpath = "//table[@class='z-hbox']//select")
+	WebElement liste_type;
+	
+	@FindBy (xpath = "(//div[@class='z-grid-pgi-b']//button[@class='z-paging-next'])[1]")
+	WebElement boutton_suivant;
+	
+	@FindBy (xpath = "//div[@class='clickable-rows z-grid']//input[@class='z-paging-inp']")
+	WebElement page_participant;
+	
+	@FindBy (xpath = "(//div[@class='z-grid-pgi-b']//button[@class='z-paging-prev'])[1]")
+	WebElement boutton_precedent;
+	
+	@FindBy (xpath = "(//div[@class='z-grid-pgi-b']//button[@class='z-paging-last'])[1]")
+	WebElement boutton_dernier;
+	
+	@FindBy (xpath = "(//div[@class='z-grid-pgi-b']//button[@class='z-paging-first'])[1]")
+	WebElement boutton_premier;
+	
+	
 }

@@ -8,13 +8,13 @@ import org.openqa.selenium.support.PageFactory;
 public class PageLogin extends PageAbstractBandeau {
 	
 	@FindBy (xpath = "//input[@name='j_username']")
-	private WebElement username_field;
+	WebElement username_field;
 	
 	@FindBy (xpath = "//input[@name='j_password']")
-	private WebElement password_field;
+	WebElement password_field;
 	
 	@FindBy (xpath = "//input[@name='button']")
-	private WebElement connect_button;
+	WebElement connect_button;
 	
 public PageAccueil logIn(WebDriver driver, String username, String password) {
 		

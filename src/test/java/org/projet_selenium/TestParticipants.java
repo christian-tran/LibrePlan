@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Handler;
 
 import org.apache.ibatis.jdbc.ScriptRunner;
+import org.apache.poi.sl.draw.geom.Outline;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,10 +30,12 @@ public class TestParticipants {
 	WebDriver driver;
 	
 	//JDD
-	String username = "admin";
-	String pwd = "admin";
 	String onglet = "Calendrier";
-	long pause = 2000;
+	long pause = 1000;
+	String prenom = "Jean";
+	String nom = "DU";
+	String id = "jdu";
+	String pwd = "$jdumdp1";
 	
 	static Logger logger = LoggerFactory.getLogger(TestParticipants.class);
 	
@@ -43,7 +46,7 @@ public class TestParticipants {
 		OutilTechnique.connexion();		
 	}
 	
-	@After
+	//@After
 	public void tearDown() throws Exception {
 		
 		driver.quit();
@@ -78,6 +81,19 @@ public class TestParticipants {
 		a.moveToElement(page_Accueil.onglet_ressources).build().perform();
 		a.moveToElement(page_Accueil.sous_menu_participants).click().build().perform();	
 		PageParticipants page_Participants = PageFactory.initElements(driver, PageParticipants.class);
+		
+		//Création des 15 personnes
+		
+		/*for (int i=1;i<=15;i++) {
+			page_Participants.boutton_creer.click();
+			wait.until(ExpectedConditions.elementToBeClickable(page_Participants.input_prenom_participant));
+			OutilTechnique.remplirChamp(page_Participants.input_prenom_participant, "Prénom"+i);
+			OutilTechnique.remplirChamp(page_Participants.input_nom_participant, "Nom"+i);
+			OutilTechnique.remplirChamp(page_Participants.input_ID_participant, "pno"+i);
+			
+			page_Participants.boutton_enregistrer.click();
+			wait.until(ExpectedConditions.visibilityOf(page_Participants.text_page_participants));
+		}*/
 		
 		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\GRE_01_02.png");
 		
@@ -142,30 +158,102 @@ public class TestParticipants {
 		
 		//Test si l'onglet affiché par défaut est "Données personnelles"
 		assertTrue("L'onglet affiché par défaut n'est pas Données personnelles", page_Participants.onglet_donnees_perso.isEnabled());
-		
+
 	//Pas de test 5
 		
 		//Test renseigner les champs du formulaire Données personnelles
 				wait.until(ExpectedConditions.elementToBeClickable(page_Participants.input_prenom_participant));
-				OutilTechnique.remplirChamp(page_Participants.input_prenom_participant, "Jean");
+				OutilTechnique.remplirChamp(page_Participants.input_prenom_participant, prenom);
 				wait.until(ExpectedConditions.elementToBeClickable(page_Participants.input_nom_participant));
-				OutilTechnique.remplirChamp(page_Participants.input_nom_participant, "DU");
+				OutilTechnique.remplirChamp(page_Participants.input_nom_participant, nom);
 				wait.until(ExpectedConditions.elementToBeClickable(page_Participants.input_ID_participant));
-				OutilTechnique.remplirChamp(page_Participants.input_ID_participant, "jdu");
+				OutilTechnique.remplirChamp(page_Participants.input_ID_participant, id);
 				
 				page_Participants.bouton_radio_creer.click();
 				
-				OutilTechnique.remplirChamp(page_Participants.input_nom_user_participant, "jdu");
-				OutilTechnique.remplirChamp(page_Participants.input_mdp_participant, "$jdumdp1");
-				OutilTechnique.remplirChamp(page_Participants.input_mdp_confirm_participant, "$jdumdp1");
+				OutilTechnique.remplirChamp(page_Participants.input_nom_user_participant, id);
+				OutilTechnique.remplirChamp(page_Participants.input_mdp_participant, pwd);
+				OutilTechnique.remplirChamp(page_Participants.input_mdp_confirm_participant, pwd);
 				
 		//Clic sur bouton enregistrer		
 				page_Participants.boutton_enregistrer.click();
 				
 				OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\GRE_01_05.png");
 		
-		//Test si le message "Participant enregistré" est affiché
+		//Test si le message "Participant enregistré" est affiché et utilisateur créé
 				assertEquals("Le message n'est pas affiché","Participant enregistré",page_Participants.message_enregistrement_participant.getText());
+				assertTrue("L'utilisateur n'a pas été créé",page_Participants.nom_utilisateur_DU.isDisplayed());
+				
+		//Remplissage champ détail personnel
+				OutilTechnique.remplirChamp(page_Participants.champ_detail_personnel, prenom);
+				page_Participants.boutton_filtre.click();
+				
+		//Test utilisateur Jean affiché
+				assertTrue("L'utilisateur n'a pas été créé",page_Participants.prenom_utilisateur_Jean.isDisplayed());
+				
+		//Clic sur plus d'option
+				page_Participants.boutton_options.click();
+				
+		//Test option affiché
+				assertTrue("Le champs de début d'activité n'est pas affiché",page_Participants.champ_periode_active_debut.isDisplayed());
+				assertTrue("Le champs de fin d'activité n'est pas affiché",page_Participants.champ_periode_active_fin.isDisplayed());
+				assertTrue("Le champs de fin d'activité n'est pas affiché",page_Participants.liste_type.isDisplayed());
+		
+		//Element manquant du test
+				page_Participants.champ_detail_personnel.clear();
+				page_Participants.boutton_filtre.click();
+				
+				
+		//Clic sur boutton >
+				Thread.sleep(pause);
+				wait.until(ExpectedConditions.visibilityOf(page_Participants.text_page_participants));
+				page_Participants.boutton_suivant.click();
+				
+		//Vérification sur la page
+				wait.until(ExpectedConditions.visibilityOf(page_Participants.text_page_participants));
+				assertEquals("La page indiqué est éronné","1",page_Participants.page_participant.getAttribute("value"));
+		
+		//Clic sur boutton <
+				Thread.sleep(pause);
+				wait.until(ExpectedConditions.visibilityOf(page_Participants.text_page_participants));
+				page_Participants.boutton_precedent.click();
+		
+		//Vérification sur la page
+				Thread.sleep(pause);
+				wait.until(ExpectedConditions.visibilityOf(page_Participants.text_page_participants));
+				assertEquals("La page indiqué est éronné","1",page_Participants.page_participant.getAttribute("value"));
+		
+		//Clic sur boutton >|
+				Thread.sleep(pause);
+				wait.until(ExpectedConditions.visibilityOf(page_Participants.text_page_participants));
+				page_Participants.boutton_dernier.click();
+		
+		//Vérification sur la page
+				wait.until(ExpectedConditions.visibilityOf(page_Participants.text_page_participants));
+				assertEquals("La page indiqué est éronné","1",page_Participants.page_participant.getAttribute("value"));
+				
+		//Clic sur boutton |<
+				Thread.sleep(pause);
+				wait.until(ExpectedConditions.visibilityOf(page_Participants.text_page_participants));
+				page_Participants.boutton_premier.click();
+		
+		//Vérification sur la page
+				wait.until(ExpectedConditions.visibilityOf(page_Participants.text_page_participants));
+				assertEquals("La page indiqué est éronné","2",page_Participants.page_participant.getAttribute("value"));
+				
+		//Déconnexion et reconnexion en tant que jdu
+				Thread.sleep(pause);
+				page_Participants.button_logout.click();
+				PageLogin page_Login = PageFactory.initElements(driver, PageLogin.class);
+				wait.until(ExpectedConditions.visibilityOf(page_Login.username_field));
+				OutilTechnique.remplirChamp(page_Login.username_field, id);
+				OutilTechnique.remplirChamp(page_Login.password_field, pwd);
+				page_Login.connect_button.click();
+				
+		//Vérification de la page tableau de bord
+				PageDashBoard page_DashBoard = PageFactory.initElements(driver, PageDashBoard.class);
+				wait.until(ExpectedConditions.visibilityOf(page_DashBoard.text_page_dashboard));
+				assertTrue("Le user n'a pas reussi à se connecter",page_DashBoard.text_page_dashboard.isDisplayed());
 				
 				
 		Thread.sleep(pause);
