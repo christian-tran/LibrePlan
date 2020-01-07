@@ -40,25 +40,22 @@ public class TestParticipants {
 	public void setUp() throws Exception {
 		driver = OutilTechnique.choisirNavigateur(ENavigateur.chrome);
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		OutilTechnique.connexion();
-		//JDD
-		BDDConnexionJavaSql.modifBDD("src/test/JDD/Sauvegarde_user_table.sql");
-		BDDConnexionJavaSql.modifBDD("src/test/JDD/Sauvegarde_worker.sql");
-		BDDConnexionJavaSql.modifBDD("src/test/JDD/Sauvegarde_resource.sql");
-		BDDConnexionJavaSql.modifBDD("src/test/JDD/Sauvegarde_resource_calendar.sql");
-		BDDConnexionJavaSql.modifBDD("src/test/JDD/Sauvegarde_base_calendar.sql");
-		BDDConnexionJavaSql.modifBDD("src/test/JDD/Sauvegarde_calendar_availability.sql");
-		BDDConnexionJavaSql.modifBDD("src/test/JDD/Sauvegarde_calendar_data.sql");
-
-		
+		OutilTechnique.connexion();		
 	}
 	
 	@After
 	public void tearDown() throws Exception {
 		
 		driver.quit();
+		
 		//Nettoyage BDD
-//		BDDConnexionJavaSql.modifBDD("src/test/JDD/nettoyage.sql");
+				BDDConnexionJavaSql.modifBDD("src/test/JDD/Sauvegarde_user_table.sql");
+				BDDConnexionJavaSql.modifBDD("src/test/JDD/Sauvegarde_worker.sql");
+				BDDConnexionJavaSql.modifBDD("src/test/JDD/Sauvegarde_resource.sql");
+				BDDConnexionJavaSql.modifBDD("src/test/JDD/Sauvegarde_resource_calendar.sql");
+				BDDConnexionJavaSql.modifBDD("src/test/JDD/Sauvegarde_base_calendar.sql");
+				BDDConnexionJavaSql.modifBDD("src/test/JDD/Sauvegarde_calendar_availability.sql");
+				BDDConnexionJavaSql.modifBDD("src/test/JDD/Sauvegarde_calendar_data.sql");				
 	}
 	
 	@Test
@@ -145,8 +142,6 @@ public class TestParticipants {
 		
 		//Test si l'onglet affiché par défaut est "Données personnelles"
 		assertTrue("L'onglet affiché par défaut n'est pas Données personnelles", page_Participants.onglet_donnees_perso.isEnabled());
-		
-		logger.info("Test");
 		
 	//Pas de test 5
 		
