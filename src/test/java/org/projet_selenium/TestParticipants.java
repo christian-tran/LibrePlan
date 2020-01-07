@@ -84,7 +84,7 @@ public class TestParticipants {
 		
 		//Création des 15 personnes
 		
-		/*for (int i=1;i<=15;i++) {
+		for (int i=1;i<=15;i++) {
 			page_Participants.boutton_creer.click();
 			wait.until(ExpectedConditions.elementToBeClickable(page_Participants.input_prenom_participant));
 			OutilTechnique.remplirChamp(page_Participants.input_prenom_participant, "Prénom"+i);
@@ -93,7 +93,7 @@ public class TestParticipants {
 			
 			page_Participants.boutton_enregistrer.click();
 			wait.until(ExpectedConditions.visibilityOf(page_Participants.text_page_participants));
-		}*/
+		}
 		
 		OutilTechnique.takeSnapShot(driver, ".\\src\\test\\snapshots\\GRE_01_02.png");
 		
