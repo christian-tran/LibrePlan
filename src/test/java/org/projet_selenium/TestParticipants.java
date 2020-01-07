@@ -151,7 +151,9 @@ public class TestParticipants {
 	//Pas de test 5
 		
 		//Test renseigner les champs du formulaire Données personnelles
+				wait.until(ExpectedConditions.elementToBeClickable(page_Participants.input_prenom_participant));
 				OutilTechnique.remplirChamp(page_Participants.input_prenom_participant, "Jean");
+				wait.until(ExpectedConditions.elementToBeClickable(page_Participants.input_nom_participant));
 				OutilTechnique.remplirChamp(page_Participants.input_nom_participant, "DU");
 				wait.until(ExpectedConditions.elementToBeClickable(page_Participants.input_ID_participant));
 				OutilTechnique.remplirChamp(page_Participants.input_ID_participant, "jdu");
