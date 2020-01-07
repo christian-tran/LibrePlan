@@ -3,7 +3,7 @@ package org.projet_selenium;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class PageRessources
+public class PageAvancement
 {
 	
 	//Elements de page du sous menu "Types d'avancement"

@@ -11,7 +11,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 
-public class testRessourcesAvancement {
+public class TestAvancement {
 
 	WebDriver driver ;
 		
@@ -50,7 +50,7 @@ public class testRessourcesAvancement {
 		a.moveToElement(page_Accueil.sous_menu_types_avancement).click().build().perform() ;
 		
 		//instanciation page ressources
-		PageRessources page_Ressource = PageFactory.initElements(driver, PageRessources.class) ;
+		PageAvancement page_Ressource = PageFactory.initElements(driver, PageAvancement.class) ;
 		
 		//verif presence tableau avec en titre de col. : nom, activé, prédéfini, opérations
 		assertTrue(page_Ressource.col_nom.isDisplayed()) ;
