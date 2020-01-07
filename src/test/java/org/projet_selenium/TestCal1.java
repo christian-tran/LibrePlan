@@ -24,7 +24,8 @@ public class TestCal1 {
 	String onglet = "Calendrier";
 	long pause = 2000;
 	String nom_calendrier = "Calendrier - Test 1";
-	String nom_calendrier1 = "Calendrier - Test Calendrier Derive";
+	String nom_calendrier_derive = "Calendrier - Test Calendrier Derive";
+	String nom_calendrier_2 = "Calendrier - Test 2";
 	String btn_derive = "Calendrier - Test bouton [dérive]2";
 	int ligne;
 	
@@ -124,8 +125,6 @@ public class TestCal1 {
 			page_Calendrier.btn_enretcon.click();
 			
 			// Attente temps de chargement de la page
-			//wait.until(ExpectedConditions.visibilityOf(page_Calendrier.listecalendrier));
-			
 			assertTrue("Le message d'erreur est absent", page_Calendrier.msg_cal_existant.isDisplayed());
 			
 			wait.until(ExpectedConditions.visibilityOf(page_Calendrier.creerCalendrier));
@@ -133,7 +132,7 @@ public class TestCal1 {
 			//Remplir le champ nom, vérifier que la box soit bien checkée (le champ nom change de xpath quand on supprime son contenu)
 			 
 			page_Calendrier.champ_nom.clear();
-			page_Calendrier.champ_nom1.sendKeys(nom_calendrier1);
+			page_Calendrier.champ_nom1.sendKeys(nom_calendrier_derive);
 			
 			assertTrue("La checkbox 'Générer le code n'est pas cochée'", page_Calendrier.checkbox_gencode.isSelected());
 			//Cliquer sur le bouton Enregistrer et continuer
@@ -158,7 +157,7 @@ public class TestCal1 {
 			assertTrue(page_Calendrier.listecalendrier.isDisplayed());
 			assertTrue(page_Calendrier.btn_moins_calendrier_test_1.isDisplayed());
 			assertTrue(OutilTechnique.chercherElement(driver, nom_calendrier, page_Calendrier.xpath_tableau1));
-			assertTrue(OutilTechnique.chercherElement(driver, nom_calendrier1, page_Calendrier.xpath_tableau1));
+			assertTrue(OutilTechnique.chercherElement(driver, nom_calendrier_derive, page_Calendrier.xpath_tableau1));
 			
 			//Click sur bouton [-]
 			page_Calendrier.btn_moins_calendrier_test_1.click();
@@ -169,11 +168,28 @@ public class TestCal1 {
 			page_Calendrier.btn_moins_calendrier_test_1.click();
 			
 			//Click sur icone créer une copie dans colonne opération
-			//ligne = OutilTechnique.retournerNumeroDeLigne(driver, nom_calendrier, page_Calendrier.xpath_tableau1);
-			//driver.findElement(By.xpath("//tr["+ligne+"]//img[@src='/libreplan/common/img/ico_editar1.png']")).click();
+			ligne = OutilTechnique.retournerNumeroDeLigne(driver, nom_calendrier, page_Calendrier.xpath_tableau1);
+			driver.findElement(By.xpath("//tr["+ligne+"]//img[@src='/libreplan/common/img/ico_copy1.png']")).click();
 			
+			//Vérification calendrier test1
+			assertTrue("La page chargé n'est pas la bonne", page_Calendrier.calendriertest1.isDisplayed());
+			assertEquals("Le type n'est pas le bon", "Calendrier source", page_Calendrier.type_calendrier.getText());
 			
-						
+			//Click sur bouton enregistrer et continuer
+			page_Calendrier.btn_enretcon.click();
+			
+			//Vérification message erreur
+			assertEquals("Le message d'erreur n'a pas été affiché","Calendrier - Test 1 existe déjà", page_Calendrier.msg_cal_existant.getText());
+			
+			//Changement de nom et enregistrer
+			OutilTechnique.remplirChamp(page_Calendrier.champ_nom, nom_calendrier_2);
+			page_Calendrier.btn_enr.click();
+			
+			//Vérifications
+			wait.until(ExpectedConditions.visibilityOf(page_Calendrier.listecalendrier));
+			assertTrue(page_Calendrier.listecalendrier.isDisplayed());
+			assertTrue(page_Calendrier.calendrier_test_2.isDisplayed());
+			
 			Thread.sleep(pause);
-}
+	}
 }

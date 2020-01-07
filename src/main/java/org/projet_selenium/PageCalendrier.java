@@ -42,7 +42,7 @@ WebElement btn_enretcon;
 @FindBy (xpath = "//table//td[text()='Annuler']")
 WebElement btn_annuler;
 
-@FindBy (xpath = "//input[@class='z-textbox']")
+@FindBy (xpath = "//div/input[contains(@class,'z-textbox')]")
 WebElement champ_nom;
 
 @FindBy (xpath = "//input[@class='z-textbox z-textbox-text-invalid']")
@@ -54,7 +54,7 @@ WebElement checkbox_gencode;
 @FindBy (xpath = "//span[@class='z-label'][text()='Calendrier - Test 1']")
 WebElement calendriertest1;
 
-String xpath_tableau1 = "//div[@class='z-dottree-body']//table//tbody[@class='z-treechildren']//tr[@class='z-treerow']";
+String xpath_tableau1 = "//div[@class='z-dottree-body']//table//tbody[@class='z-treechildren']//tr[contains(@class,'z-treerow')]";
 
 @FindBy (xpath = "//span[@class='z-label'][text()='Dérivé du calendrier Calendrier - Test 1']")
 WebElement champ_type;
@@ -79,6 +79,15 @@ WebElement btn_moins_calendrier_test_1;
 
 @FindBy (xpath = "//span[text()='Calendrier - Test Calendrier Derive']")
 WebElement calendrier_test_calendrier_derive;
+
+@FindBy (xpath = "//span[text()='Calendrier source']")
+WebElement type_calendrier;
+
+@FindBy (xpath = "//span[text()='Calendrier de base \"Calendrier - Test 2\" enregistré']")
+WebElement msg_cal_test_2;
+
+@FindBy (xpath = "//span[text()='Calendrier - Test 2']")
+WebElement calendrier_test_2;
 
 }
 

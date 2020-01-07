@@ -82,12 +82,13 @@ static String navigateur = "Chrome";
 	
 	static int retournerNumeroDeLigne(WebDriver driver, String s, String xpath){ 
 		int ligneCourante = 1;
+		
 		List<WebElement> lignes = driver.findElements(By.xpath(xpath));
 		for(WebElement ligne : lignes){
 		   List<WebElement> cases = ligne.findElements(By.xpath("td"));
 		   for(WebElement cellule : cases) {
 			   if(cellule.getText().equals(s)){
-				   return ligneCourante;	
+				   return ligneCourante;
 			   }
 		   }
 	      ligneCourante++;
