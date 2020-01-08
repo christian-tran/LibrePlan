@@ -14,7 +14,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class TestCal1 {
+public class TestCalendrier {
 
 	WebDriver driver;
 	
