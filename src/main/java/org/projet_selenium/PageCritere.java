@@ -75,6 +75,6 @@ public class PageCritere extends PageAbstractBandeau {
 	WebElement text_suppression_critere;
 	
 	
-	String xpath_tableau = "//div[@class='clickable-rows z-grid']//table//tbody[@class='z-rows']/tr";
+	String xpath_tableau = "//div[@class='clickable-rows z-grid']//table//tbody[@class='z-rows']/tr" ;
 
 }

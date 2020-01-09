@@ -109,10 +109,10 @@ public class PageAvancement
 	WebElement bouton_operations_del ;
 	//
 	@FindBy (xpath = "//tr[@class='clickable-rows z-row z-grid-odd']//td[2]//div[1]//span[1]//input[1]")
-	WebElement checkbox_active_2 ; //pas bon
+	WebElement checkbox_active_2 ; //pas bon xpath à revoir
 	
-	@FindBy (xpath = "//tr[6]//td[3]//div[1]//span[1]//input[1]") //pas bon
-	WebElement checkbox_predefini_2 ;
+	@FindBy (xpath = "//tr[6]//td[3]//div[1]//span[1]//input[1]")
+	WebElement checkbox_predefini_2 ;//pas bon, a revoir
 	
 	@FindBy (xpath = "//tr[6]//td[4]//div[1]//table[1]//tbody[1]//tr[1]//td[1]//table[1]//tbody[1]//tr[1]//td[1]//span[1]//table[1]//tbody[1]//tr[2]//td[2]//img[1]")
 	WebElement bouton_operations_modif_2 ;
@@ -123,16 +123,6 @@ public class PageAvancement
 	String xpath_tableau = "//div[@class='clickable-rows z-grid']//table//tbody[@class='z-rows']/tr" ;
 	
 	
-	
-	
-	
-	//div[@class='clickable-rows z-grid']//tr[6]//td[2]//div[1]//span[1]//input[1]
-	
-	
-	
-	
-	
-	
-	
+
 	
 }
